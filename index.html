@@ -256,6 +256,7 @@ body.hasnudge{padding-bottom:84px}
 .grades{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}.grades button{border:1.5px solid var(--bd);background:var(--card);color:var(--fg);border-radius:12px;padding:10px 4px;cursor:pointer;font:600 .95rem system-ui;display:flex;flex-direction:column;align-items:center;gap:2px}.grades button small{font:500 .75rem system-ui;color:var(--mut)}.grades button.good{background:var(--ac);color:var(--acfg);border-color:var(--ac)}.grades button.good small{color:inherit;opacity:.85}.grades button:hover{border-color:var(--ac)}
 .hw.hl{background:color-mix(in srgb,var(--ac) 22%,transparent)}
 .mkh{display:flex;justify-content:space-between;align-items:center;margin:14px 0 14px}.mkh b{font:700 1.6rem system-ui;display:block;color:var(--ac);letter-spacing:-.01em}.mkh small{color:var(--mut)}.mki{display:flex;gap:8px}.mki .chip{padding:10px 14px;min-width:0;min-height:0}
+.tdy2{display:grid;gap:12px}.tdy2 .today{padding:16px}.tdy2 .tn b{font-size:1.5rem}.tdy2 .today .btn{font-size:1rem}.today.les{background:var(--acd,#47553f)}@media(min-width:760px){.tdy2{grid-template-columns:1fr 1fr}}.rfull.les .hwt{display:none}
 .today{background:var(--ac);color:var(--acfg);border-radius:20px;padding:20px;text-align:center}.today .tl{font:600 .85rem system-ui;letter-spacing:.08em;text-transform:uppercase;opacity:.8}.today .tn{font:500 1.05rem system-ui;margin:6px 0 14px}.today .tn b{font-size:1.9rem}.today .btn{background:var(--acfg);color:var(--ac);font-size:1.15rem;padding:15px;width:100%;box-shadow:none}.today .btn:disabled{opacity:.6}.today .tsub{font-size:.85rem;opacity:.85;margin-top:10px}.today .tlink{background:none;border:0;color:inherit;text-decoration:underline;margin-top:10px;font:600 .9rem system-ui;cursor:pointer}
 .qrow{display:flex;gap:8px;margin:12px 0 0}.qrow .btn{flex:1;padding:12px 8px;font-size:.9rem}
 .howto{background:var(--chip);border-radius:14px;padding:12px 14px;margin:0 0 14px;font-size:.9rem;color:var(--mut)}.howto .ht{font-weight:700;color:var(--fg);margin-bottom:2px}.howto em{font-style:normal;font-weight:700;color:var(--fg)}
@@ -2604,7 +2605,7 @@ function rvVerb(id){
 function rvWord(id){
  const m=wMake(id),a=m.ans||{},f=m.full,form=a.h&&a.h!=f.he;
  const front=`<div class=ln>${f.en}</div>`;
- const back=`<div class=rfull><div class=he dir=rtl${m.nk?" data-hw=1":""}>${f.he}</div>${!form&&a.t&&id.split(":")[1]!="adj"?`<div class="rtr trx">${a.t}</div>`:""}<div class=en>${f.en}</div>${a.m?`<div class=ram>${a.m}</div>`:""}</div>`;
+ const back=`<div class="rfull${m.nk?" les":""}"><div class=he dir=rtl>${f.he}</div>${!form&&a.t&&id.split(":")[1]!="adj"?`<div class="rtr trx">${a.t}</div>`:""}<div class=en>${f.en}</div>${a.m?`<div class=ram>${a.m}</div>`:""}</div>`;
  return{meta:m.meta,nk:m.nk,front,back,v:null,hl:form?a.h:"",log:{he:f.he,en:f.en,a:a.t||""}};
 }
 function rvAsk(){
@@ -2654,7 +2655,7 @@ function rvEnd(){
 }
 let INC={v:true,w:true};try{Object.assign(INC,JSON.parse(localStorage.getItem("hvp_inc")||"{}"))}catch(e){}
 if(!INC.v&&!INC.w)INC={v:true,w:true};
-const homeIds=()=>[...(INC.v?items():[]),...(INC.w?wItems():[]),...lesItems()];
+const homeIds=()=>[...(INC.v?items():[]),...(INC.w?wItems():[])];
 const build=()=>rvStart(homeIds,{from:"home",cap:20});
 function weakGo(){if(!weakIds().length)return;rvStart(()=>weakIds(),{from:"home",cap:10,weak:1})}
 document.addEventListener("keydown",e=>{
@@ -4400,7 +4401,7 @@ document.addEventListener('input',e=>{if(e.target.id=='nm'){NAME=e.target.value;
 let MK={};
 function home(){
  tab='home';R=null;
- const vi=INC.v?items():[],wi=[...(INC.w?wItems():[]),...lesItems()],all=[...vi,...wi],now=Date.now(),due=all.filter(i=>store[i]&&store[i].d<=now).length,
+ const vi=INC.v?items():[],wi=INC.w?wItems():[],all=[...vi,...wi],now=Date.now(),due=all.filter(i=>store[i]&&store[i].d<=now).length,
  avail=Math.min(vi.filter(i=>!store[i]).length,newLeft(0))+Math.min(wi.filter(i=>!store[i]).length,newLeft(1)),tot=due+avail,n=Math.min(20,tot),fresh=all.some(i=>!store[i]),first=!Object.keys(store).some(k=>k!="_s");
  const lvn=sel.l.size>1?"All levels":(LV.find(x=>x[0]==[...sel.l][0])||[0,""])[1],vn=sel.v.size>2?sel.v.size+" groups":[...sel.v].join(", "),tn=[...sel.t].map(t=>(TENSES.find(x=>x[0]==t)||[0,t])[1]).join(", ");
  const ld=sel.l.size==1?(LV.find(x=>x[0]==[...sel.l][0])||[0,0,""])[2]:"A mix of everything";
@@ -4409,7 +4410,7 @@ function home(){
  const from=INC.v&&INC.w?"Mixed from verbs and phrases & grammar":INC.v?"From verbs only":"From phrases & grammar only";
  $("#app").innerHTML=`${tabs('home')}
  ${first?`<div class=howto><div class=ht>How it works</div><div>Each card is a sentence with a blank. Tap <em>Show answer</em>, then rate how easy it was. The app brings the card back at the right time.</div></div>`:""}
- <div class=today><div class=tl>Today</div><div class=tn><b>${due}</b> due for review · <b>${avail}</b> new</div><button class="btn go" id=go ${tot?"":"disabled"}>Start review${n?` (${n} cards)`:""}</button>${n?`<div class=tsub>${from} · about ${Math.max(1,Math.round(n/4))} minutes</div>`:""}${all.length&&!avail&&fresh?`<button class=tlink data-a=more10>Learn 10 more new cards today</button>`:""}${all.length?"":`<div class=tsub>Choose something to practice below.</div>`}${LES?`<div class=tsub><b>✦ From your lessons · ${LES.name}</b> · ${lesItems().length} cards</div>`:""}</div>
+ ${LES&&lesIds("all").length?`<div class=tdy2>`:""}<div class=today><div class=tl>${LES&&lesIds("all").length?"General review":"Today"}</div><div class=tn><b>${due}</b> due for review · <b>${avail}</b> new</div><button class="btn go" id=go ${tot?"":"disabled"}>Start review${n?` (${n} cards)`:""}</button>${n?`<div class=tsub>${from} · about ${Math.max(1,Math.round(n/4))} minutes</div>`:""}${all.length&&!avail&&fresh?`<button class=tlink data-a=more10>Learn 10 more new cards today</button>`:""}${all.length?"":`<div class=tsub>Choose something to practice below.</div>`}</div>${LES&&lesIds("all").length?lesCard()+`</div>`:""}
  ${weakIds().length?`<div class=qrow><button class="btn alt" id=wk>🎯 Weak spots (${Math.min(10,weakIds().length)})</button></div>`:""}
  <h3 class=mkt>Include in my review</h3><div class="chips incs"><button class=chip data-inc=v aria-pressed="${INC.v}"><b>Verbs</b></button><button class=chip data-inc=w aria-pressed="${INC.w}"><b>Phrases & grammar</b></button></div>
  <details class="mkd${INC.v?"":" off"}" data-k=v ${INC.v&&op("v")?"open":""}><summary>Verbs <span>${INC.v?lvn+" · "+vn+" · "+(tn||"no forms"):"Not included"}</span></summary>${INC.v?`<h4>Level</h4><div class=seg>${LV.map(([k,e,d])=>`<button data-l="${k}" aria-pressed="${sel.l.size==1&&sel.l.has(k)}">${e}</button>`).join("")}<button data-l=0 aria-pressed="${sel.l.size>1}" class=segmix>Mix</button></div><p class=segd>${ld}</p><h4>Verb groups</h4><div class="chips vg">${GR().map(g=>`<button class=chip data-v="${g.n}" aria-pressed="${sel.v.has(g.n)}"><b dir=rtl>${g.s}</b><small>${g.n} · ${g.k} verbs</small></button>`).join('')}</div><h4>Forms</h4><div class="chips ft">${TENSES.map(([k,e,h])=>`<button class=chip data-t="${k}" aria-pressed="${sel.t.has(k)}"><b dir=rtl>${h}</b><small>${e}</small></button>`).join("")}</div>`:""}</details>
@@ -4504,7 +4505,7 @@ document.addEventListener("click",e=>{
  else if(D.l){const n=+D.l;sel.l=new Set(n?[n]:[1,2,3,4]);try{localStorage.setItem("hvp_lv",n)}catch(e){}ACT.lv[n]=(ACT.lv[n]||0)+1;actSave();if(n)GRS.lv=[0,1,1,2,3][n];home()}
  else if(D.tab){tab=D.tab;ACT.tb[tab]=(ACT.tb[tab]||0)+1;actSave();show()}
  else if(b.id=='rp'){const t=rep();$('#rpt').innerHTML=`<textarea class=l rows=8 readonly onclick='this.select()'>${esc(t)}</textarea>`;try{navigator.clipboard.writeText(t)}catch(x){}}
- else if(b.id=="go")build();
+ else if(b.id=="go")build();else if(b.id=="lgo")rvStart(()=>lesIds("all"),{from:"home",cap:20});else if(b.id=="lgo1")rvStart(()=>lesIds("last"),{from:"home",cap:20});
  else if(D.a=="home")home();
  else if(D.a=="more"){rvStart(R.src,R.o)}
  else if(D.a=="more10"){ndFix();{const ids=R?(typeof R.src=="function"?R.src():R.ids)||[]:homeIds();if(ids.some(i=>!store[i]&&!isW(i)))ND.x+=10;if(ids.some(i=>!store[i]&&isW(i)))ND.xw+=10}ndSave();if(R)rvStart(R.src,R.o);else if(tab=="words")words();else home()}
@@ -5118,6 +5119,10 @@ function wSetup(){
 // ---- lessons from the teacher, one set per student (students/<id>.json) ----
 let LES=null,LNK=false;try{LNK=localStorage.getItem("hvp_nk")==="1"}catch(e){}
 const lesItems=()=>LES?LES.l.flatMap(L=>[...L.w.map((_,i)=>"w:l:"+L.id+":w:"+i),...L.s.map((_,i)=>"w:l:"+L.id+":s:"+i)]):[];
+const lesIds=sc=>{if(!LES||!LES.l.length)return[];const Ls=sc=="last"?[LES.l[LES.l.length-1]]:LES.l;return Ls.flatMap(L=>[...L.w.map((_,i)=>"w:l:"+L.id+":w:"+i),...L.s.map((_,i)=>"w:l:"+L.id+":s:"+i)])};
+const lesStat=sc=>{const ids=lesIds(sc),now=Date.now(),due=ids.filter(i=>store[i]&&store[i].d<=now).length,nw=Math.min(ids.filter(i=>!store[i]).length,newLeft(1));return{due,nw,n:Math.min(20,due+nw)}};
+function lesCard(){if(!LES||!lesIds("all").length)return"";const a=lesStat("all"),l=lesStat("last"),multi=LES.l.length>1;
+ return `<div class="today les"><div class=tl>✦ ${LES.name} · from my lessons</div><div class=tn><b>${a.due}</b> due · <b>${a.nw}</b> new</div><button class="btn go" id=lgo ${a.n?"":"disabled"}>Practice vocabulary from my lessons${a.n?` (${a.n})`:""}</button>${multi&&l.n?`<button class=tlink id=lgo1>Only our last lesson (${l.n})</button>`:""}<div class=tsub>Words and sentences from your lessons with Mor</div></div>`}
 function lesLoad(){
  let id="";try{id=new URLSearchParams(location.search).get("s")||localStorage.getItem("hvp_stu")||""}catch(e){}
  if(!/^[a-z0-9]{4,16}$/.test(id)||!location.protocol.startsWith("http"))return;
