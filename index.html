@@ -4505,7 +4505,7 @@ document.addEventListener("click",e=>{
  else if(D.l){const n=+D.l;sel.l=new Set(n?[n]:[1,2,3,4]);try{localStorage.setItem("hvp_lv",n)}catch(e){}ACT.lv[n]=(ACT.lv[n]||0)+1;actSave();if(n)GRS.lv=[0,1,1,2,3][n];home()}
  else if(D.tab){tab=D.tab;ACT.tb[tab]=(ACT.tb[tab]||0)+1;actSave();show()}
  else if(b.id=='rp'){const t=rep();$('#rpt').innerHTML=`<textarea class=l rows=8 readonly onclick='this.select()'>${esc(t)}</textarea>`;try{navigator.clipboard.writeText(t)}catch(x){}}
- else if(b.id=="go")build();else if(b.id=="lgo")rvStart(()=>lesIds("all"),{from:"home",cap:20});else if(b.id=="lgo1")rvStart(()=>lesIds("last"),{from:"home",cap:20});
+ else if(b.id=="go")build();else if(b.id=="lgo")rvStart(()=>lesIds("all"),{from:"home",cap:20});else if(b.id=="lout"){try{localStorage.removeItem("hvp_stu");localStorage.removeItem("hvp_les")}catch(x){}LES=null;home()}else if(b.id=="lgo1")rvStart(()=>lesIds("last"),{from:"home",cap:20});
  else if(D.a=="home")home();
  else if(D.a=="more"){rvStart(R.src,R.o)}
  else if(D.a=="more10"){ndFix();{const ids=R?(typeof R.src=="function"?R.src():R.ids)||[]:homeIds();if(ids.some(i=>!store[i]&&!isW(i)))ND.x+=10;if(ids.some(i=>!store[i]&&isW(i)))ND.xw+=10}ndSave();if(R)rvStart(R.src,R.o);else if(tab=="words")words();else home()}
@@ -5122,9 +5122,9 @@ const lesItems=()=>LES?LES.l.flatMap(L=>[...L.w.map((_,i)=>"w:l:"+L.id+":w:"+i),
 const lesIds=sc=>{if(!LES||!LES.l.length)return[];const Ls=sc=="last"?[LES.l[LES.l.length-1]]:LES.l;return Ls.flatMap(L=>[...L.w.map((_,i)=>"w:l:"+L.id+":w:"+i),...L.s.map((_,i)=>"w:l:"+L.id+":s:"+i)])};
 const lesStat=sc=>{const ids=lesIds(sc),now=Date.now(),due=ids.filter(i=>store[i]&&store[i].d<=now).length,nw=Math.min(ids.filter(i=>!store[i]).length,newLeft(1));return{due,nw,n:Math.min(20,due+nw)}};
 function lesCard(){if(!LES||!lesIds("all").length)return"";const a=lesStat("all"),l=lesStat("last"),multi=LES.l.length>1;
- return `<div class="today les"><div class=tl>✦ ${LES.name} · from my lessons</div><div class=tn><b>${a.due}</b> due · <b>${a.nw}</b> new</div><button class="btn go" id=lgo ${a.n?"":"disabled"}>Practice vocabulary from my lessons${a.n?` (${a.n})`:""}</button>${multi&&l.n?`<button class=tlink id=lgo1>Only our last lesson (${l.n})</button>`:""}<div class=tsub>Words and sentences from your lessons with Mor</div></div>`}
+ return `<div class="today les"><div class=tl>✦ ${LES.name} · from my lessons</div><div class=tn><b>${a.due}</b> due · <b>${a.nw}</b> new</div><button class="btn go" id=lgo ${a.n?"":"disabled"}>Practice vocabulary from my lessons${a.n?` (${a.n})`:""}</button>${multi&&l.n?`<button class=tlink id=lgo1>Only our last lesson (${l.n})</button>`:""}<div class=tsub>Words and sentences from your lessons with Mor</div><button class=tlink id=lout>Not ${LES.name}? Use the general app</button></div>`}
 function lesLoad(){
- let id="";try{id=new URLSearchParams(location.search).get("s")||localStorage.getItem("hvp_stu")||""}catch(e){}
+ let id="";try{id=new URLSearchParams(location.search).get("s")||localStorage.getItem("hvp_stu")||"";if(id=="off"){localStorage.removeItem("hvp_stu");localStorage.removeItem("hvp_les");history.replaceState(null,"",location.pathname);return}}catch(e){}
  if(!/^[a-z0-9]{4,16}$/.test(id)||!location.protocol.startsWith("http"))return;
  try{const c=JSON.parse(localStorage.getItem("hvp_les")||"null");if(c&&c.id==id)LES=c}catch(e){}
  fetch("students/"+id+".json?"+Date.now()).then(r=>r.ok?r.json():Promise.reject()).then(j=>{j.id=id;LES=j;try{localStorage.setItem("hvp_stu",id);localStorage.setItem("hvp_les",JSON.stringify(j))}catch(e){}if(tab=="home"&&!R)home()}).catch(()=>{});
