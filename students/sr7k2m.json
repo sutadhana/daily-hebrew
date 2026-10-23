@@ -1,0 +1,241 @@
+{
+ "name": "Sarah",
+ "l": [
+  {
+   "id": "20261023",
+   "title": "Want to + infinitive; present of to do",
+   "w": [
+    {
+     "n": "לָגוּר",
+     "h": "לגור",
+     "t": "lagur",
+     "en": "to live (in a place)"
+    },
+    {
+     "n": "לָקוּם",
+     "h": "לקום",
+     "t": "lakum",
+     "en": "to get up"
+    },
+    {
+     "n": "לָנוּחַ",
+     "h": "לנוח",
+     "t": "lanuach",
+     "en": "to rest"
+    },
+    {
+     "n": "לָבוֹא",
+     "h": "לבוא",
+     "t": "lavo",
+     "en": "to come"
+    },
+    {
+     "n": "לָשִׁיר",
+     "h": "לשיר",
+     "t": "lashir",
+     "en": "to sing"
+    },
+    {
+     "n": "לָשִׂים",
+     "h": "לשים",
+     "t": "lasim",
+     "en": "to put"
+    },
+    {
+     "n": "לַעֲשׂוֹת",
+     "h": "לעשות",
+     "t": "la'asot",
+     "en": "to do / to make"
+    },
+    {
+     "n": "רוֹצֶה",
+     "h": "רוצה",
+     "t": "rotse",
+     "en": "wants (m.)"
+    },
+    {
+     "n": "מָחָר",
+     "h": "מחר",
+     "t": "machar",
+     "en": "tomorrow"
+    },
+    {
+     "n": "בְּעֵרֶךְ",
+     "h": "בערך",
+     "t": "beerech",
+     "en": "about / around"
+    },
+    {
+     "n": "בְּשֶׁבַע",
+     "h": "בשבע",
+     "t": "besheva",
+     "en": "at seven"
+    },
+    {
+     "n": "מָתַי",
+     "h": "מתי",
+     "t": "matai",
+     "en": "when"
+    },
+    {
+     "n": "בָּעֶרֶב",
+     "h": "בערב",
+     "t": "baerev",
+     "en": "in the evening"
+    },
+    {
+     "n": "בַּבֹּקֶר",
+     "h": "בבקר",
+     "t": "baboker",
+     "en": "in the morning"
+    },
+    {
+     "n": "כִּתָּה",
+     "h": "כתה",
+     "t": "kita",
+     "en": "class"
+    },
+    {
+     "n": "חֶדֶר",
+     "h": "חדר",
+     "t": "cheder",
+     "en": "room"
+    },
+    {
+     "n": "שֻׁלְחָן",
+     "h": "שלחן",
+     "t": "shulchan",
+     "en": "table"
+    },
+    {
+     "n": "פְּרָחִים",
+     "h": "פרחים",
+     "t": "prachim",
+     "en": "flowers"
+    },
+    {
+     "n": "שִׁיר",
+     "h": "שיר",
+     "t": "shir",
+     "en": "song"
+    },
+    {
+     "n": "יָפֶה",
+     "h": "יפה",
+     "t": "yafe",
+     "en": "beautiful"
+    },
+    {
+     "n": "בַּיִת",
+     "h": "בית",
+     "t": "bayit",
+     "en": "house"
+    },
+    {
+     "n": "סְפּוֹרְט",
+     "h": "ספורט",
+     "t": "sport",
+     "en": "sport"
+    },
+    {
+     "n": "מֵדִיטַצְיָה",
+     "h": "מדיטציה",
+     "t": "meditatsya",
+     "en": "meditation"
+    },
+    {
+     "n": "קְצָת",
+     "h": "קצת",
+     "t": "ktsat",
+     "en": "a little / a bit"
+    }
+   ],
+   "s": [
+    {
+     "n": "אֲנִי רוֹצֶה לָקוּם מָחָר בְּשֶׁבַע.",
+     "h": "אני רוצה לקום מחר בשבע.",
+     "t": "ani rotse lakum machar besheva.",
+     "en": "I want to get up tomorrow at seven."
+    },
+    {
+     "n": "מָתַי אַתְּ רוֹצָה לָבוֹא?",
+     "h": "מתי את רוצה לבוא?",
+     "t": "matai at rotsa lavo?",
+     "en": "When do you (f.) want to come?"
+    },
+    {
+     "n": "אֲנַחְנוּ רוֹצִים לָנוּחַ קְצָת.",
+     "h": "אנחנו רוצים לנוח קצת.",
+     "t": "anachnu rotsim lanuach ktsat.",
+     "en": "We want to rest a bit."
+    },
+    {
+     "n": "הוּא לֹא רוֹצֶה לָגוּר בְּתֵל אָבִיב.",
+     "h": "הוא לא רוצה לגור בתל אביב.",
+     "t": "hu lo rotse lagur betel aviv.",
+     "en": "He doesn't want to live in Tel Aviv."
+    },
+    {
+     "n": "אַתְּ רוֹצָה לָשִׁיר אִתִּי?",
+     "h": "את רוצה לשיר אתי?",
+     "t": "at rotsa lashir iti?",
+     "en": "Do you (f.) want to sing with me?"
+    },
+    {
+     "n": "אַתָּה רוֹצֶה לָשִׂים אֶת הַתִּיק פֹּה?",
+     "h": "אתה רוצה לשים את התיק פה?",
+     "t": "ata rotse lasim et hatik po?",
+     "en": "Do you (m.) want to put the bag here?"
+    },
+    {
+     "n": "הֵן רוֹצוֹת לַעֲשׂוֹת סְפּוֹרְט בַּבֹּקֶר.",
+     "h": "הן רוצות לעשות ספורט בבקר.",
+     "t": "hen rotsot la'asot sport baboker.",
+     "en": "They (f.) want to exercise in the morning."
+    },
+    {
+     "n": "מָה אַתֶּם רוֹצִים לַעֲשׂוֹת מָחָר?",
+     "h": "מה אתם רוצים לעשות מחר?",
+     "t": "ma atem rotsim la'asot machar?",
+     "en": "What do you (pl.) want to do tomorrow?"
+    },
+    {
+     "n": "הִיא רוֹצָה לָבוֹא בְּעֵרֶךְ בִּשְׁמוֹנֶה.",
+     "h": "היא רוצה לבוא בערך בשמונה.",
+     "t": "hi rotsa lavo beerech bishmone.",
+     "en": "She wants to come at around eight."
+    },
+    {
+     "n": "בָּעֶרֶב אֲנִי עוֹשֶׂה מֵדִיטַצְיָה.",
+     "h": "בערב אני עושה מדיטציה.",
+     "t": "baerev ani ose meditatsya.",
+     "en": "In the evening I meditate."
+    },
+    {
+     "n": "מָה הֵם עוֹשִׂים? הֵם שָׁרִים שִׁיר יָפֶה.",
+     "h": "מה הם עושים? הם שרים שיר יפה.",
+     "t": "ma hem osim? hem shirim shir yafe.",
+     "en": "What are they doing? They're singing a beautiful song."
+    },
+    {
+     "n": "אֲנַחְנוּ שָׂמִים אֶת הַסְּפָרִים בַּתִּיק.",
+     "h": "אנחנו שמים את הספרים בתיק.",
+     "t": "anachnu samim et hasfarim batik.",
+     "en": "We're putting the books in the bag."
+    },
+    {
+     "n": "מָחָר בַּבֹּקֶר אֲנִי רוֹצֶה לָנוּחַ בַּבַּיִת.",
+     "h": "מחר בבקר אני רוצה לנוח בבית.",
+     "t": "machar baboker ani rotse lanuach babayit.",
+     "en": "Tomorrow morning I want to rest at home."
+    },
+    {
+     "n": "מָתַי אַתֶּם בָּאִים? אֲנַחְנוּ בָּאִים בְּעֵרֶךְ בְּשֶׁבַע.",
+     "h": "מתי אתם באים? אנחנו באים בערך בשבע.",
+     "t": "matai atem ba'im? anachnu ba'im beerech besheva.",
+     "en": "When are you (pl.) coming? We're coming at around seven."
+    }
+   ]
+  }
+ ]
+}

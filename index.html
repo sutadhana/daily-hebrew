@@ -2604,8 +2604,8 @@ function rvVerb(id){
 function rvWord(id){
  const m=wMake(id),a=m.ans||{},f=m.full,form=a.h&&a.h!=f.he;
  const front=`<div class=ln>${f.en}</div>`;
- const back=`<div class=rfull><div class=he dir=rtl>${f.he}</div>${!form&&a.t&&id.split(":")[1]!="adj"?`<div class="rtr trx">${a.t}</div>`:""}<div class=en>${f.en}</div>${a.m?`<div class=ram>${a.m}</div>`:""}</div>`;
- return{meta:m.meta,front,back,v:null,hl:form?a.h:"",log:{he:f.he,en:f.en,a:a.t||""}};
+ const back=`<div class=rfull><div class=he dir=rtl${m.nk?" data-hw=1":""}>${f.he}</div>${!form&&a.t&&id.split(":")[1]!="adj"?`<div class="rtr trx">${a.t}</div>`:""}<div class=en>${f.en}</div>${a.m?`<div class=ram>${a.m}</div>`:""}</div>`;
+ return{meta:m.meta,nk:m.nk,front,back,v:null,hl:form?a.h:"",log:{he:f.he,en:f.en,a:a.t||""}};
 }
 function rvAsk(){
  if(!R.q.length)return rvEnd();
@@ -2618,7 +2618,7 @@ function rvDraw(){
  const bk=`<button class="btn alt back" data-a=home>← Practice</button>`;
  const ref=m.v?`<button class="btn alt" data-rv="${m.v.id}" data-hl="${m.t}:${m.i}">📖 Conjugation: <span dir=rtl>${m.v.infinitive.h}</span></button><button class="btn alt" data-ro=1>📚 All verbs</button>`:"";
  $("#app").innerHTML=`<div class=hdr>${bk}<span class=meta>${n} of ${R.start}${isNew?" · new":""}</span><div class=bar><i style="width:${R.done/Math.max(1,R.start)*100}%"></i></div></div>
- <div class=trrow>${trBtn()}</div><div class=refrow>${ref}<button class="btn alt" data-srch=1>🔍 Search a word</button></div>
+ <div class=trrow>${m.nk?`<button class="chip tglt" data-nk=1 aria-pressed="${LNK}">Nikud <i class=sw></i></button> `:""}${trBtn()}</div><div class=refrow>${ref}<button class="btn alt" data-srch=1>🔍 Search a word</button></div>
  <div class="card rvc" id=rvc><div class=meta>${m.meta}</div>${m.front}
  <div class=rb id=rb hidden>${m.back}<div class=grades>${["Again","Hard","Good","Easy"].map((x,k)=>`<button data-gr=${k+1} class="${k==2?"good":""}">${x}<small>${pv[k]}</small></button>`).join("")}</div></div>
  <div class="center rvs" id=rvs><button class="btn" id=show>Show answer</button><div><button class=link id=rskip>Skip</button></div></div></div>`;
@@ -2654,7 +2654,7 @@ function rvEnd(){
 }
 let INC={v:true,w:true};try{Object.assign(INC,JSON.parse(localStorage.getItem("hvp_inc")||"{}"))}catch(e){}
 if(!INC.v&&!INC.w)INC={v:true,w:true};
-const homeIds=()=>[...(INC.v?items():[]),...(INC.w?wItems():[])];
+const homeIds=()=>[...(INC.v?items():[]),...(INC.w?wItems():[]),...lesItems()];
 const build=()=>rvStart(homeIds,{from:"home",cap:20});
 function weakGo(){if(!weakIds().length)return;rvStart(()=>weakIds(),{from:"home",cap:10,weak:1})}
 document.addEventListener("keydown",e=>{
@@ -4333,7 +4333,7 @@ function hwify(){
   b.replaceWith(d)})}
 // transliteration on/off (kept on this device, on by default)
 const TRH="Transliteration <i class=sw></i>";
-const setTr=on=>{opt.tr=!!on;try{localStorage.setItem("hvp_tr",on?"1":"0")}catch(e){}document.body.classList.toggle("notr",!on);document.querySelectorAll(".tglt").forEach(b=>{b.setAttribute("aria-pressed",!!on);b.innerHTML=TRH});const c=document.getElementById("tr");if(c)c.checked=!!on};
+const setTr=on=>{opt.tr=!!on;try{localStorage.setItem("hvp_tr",on?"1":"0")}catch(e){}document.body.classList.toggle("notr",!on);document.querySelectorAll(".tglt[data-trt]").forEach(b=>{b.setAttribute("aria-pressed",!!on);b.innerHTML=TRH});const c=document.getElementById("tr");if(c)c.checked=!!on};
 const trBtn=(cls)=>`<button class="chip tglt ${cls||""}" data-trt=1 aria-pressed="${opt.tr}">${TRH}</button>`;
 document.addEventListener("click",e=>{const b=e.target.closest("[data-trt]");if(b)setTr(!opt.tr)});
 try{if(localStorage.getItem("hvp_tr")==="0"){opt.tr=false;document.body.classList.add("notr")}}catch(e){}
@@ -4400,7 +4400,7 @@ document.addEventListener('input',e=>{if(e.target.id=='nm'){NAME=e.target.value;
 let MK={};
 function home(){
  tab='home';R=null;
- const vi=INC.v?items():[],wi=INC.w?wItems():[],all=[...vi,...wi],now=Date.now(),due=all.filter(i=>store[i]&&store[i].d<=now).length,
+ const vi=INC.v?items():[],wi=[...(INC.w?wItems():[]),...lesItems()],all=[...vi,...wi],now=Date.now(),due=all.filter(i=>store[i]&&store[i].d<=now).length,
  avail=Math.min(vi.filter(i=>!store[i]).length,newLeft(0))+Math.min(wi.filter(i=>!store[i]).length,newLeft(1)),tot=due+avail,n=Math.min(20,tot),fresh=all.some(i=>!store[i]),first=!Object.keys(store).some(k=>k!="_s");
  const lvn=sel.l.size>1?"All levels":(LV.find(x=>x[0]==[...sel.l][0])||[0,""])[1],vn=sel.v.size>2?sel.v.size+" groups":[...sel.v].join(", "),tn=[...sel.t].map(t=>(TENSES.find(x=>x[0]==t)||[0,t])[1]).join(", ");
  const ld=sel.l.size==1?(LV.find(x=>x[0]==[...sel.l][0])||[0,0,""])[2]:"A mix of everything";
@@ -4409,7 +4409,7 @@ function home(){
  const from=INC.v&&INC.w?"Mixed from verbs and phrases & grammar":INC.v?"From verbs only":"From phrases & grammar only";
  $("#app").innerHTML=`${tabs('home')}
  ${first?`<div class=howto><div class=ht>How it works</div><div>Each card is a sentence with a blank. Tap <em>Show answer</em>, then rate how easy it was. The app brings the card back at the right time.</div></div>`:""}
- <div class=today><div class=tl>Today</div><div class=tn><b>${due}</b> due for review · <b>${avail}</b> new</div><button class="btn go" id=go ${tot?"":"disabled"}>Start review${n?` (${n} cards)`:""}</button>${n?`<div class=tsub>${from} · about ${Math.max(1,Math.round(n/4))} minutes</div>`:""}${all.length&&!avail&&fresh?`<button class=tlink data-a=more10>Learn 10 more new cards today</button>`:""}${all.length?"":`<div class=tsub>Choose something to practice below.</div>`}</div>
+ <div class=today><div class=tl>Today</div><div class=tn><b>${due}</b> due for review · <b>${avail}</b> new</div><button class="btn go" id=go ${tot?"":"disabled"}>Start review${n?` (${n} cards)`:""}</button>${n?`<div class=tsub>${from} · about ${Math.max(1,Math.round(n/4))} minutes</div>`:""}${all.length&&!avail&&fresh?`<button class=tlink data-a=more10>Learn 10 more new cards today</button>`:""}${all.length?"":`<div class=tsub>Choose something to practice below.</div>`}${LES?`<div class=tsub><b>✦ From your lessons · ${LES.name}</b> · ${lesItems().length} cards</div>`:""}</div>
  ${weakIds().length?`<div class=qrow><button class="btn alt" id=wk>🎯 Weak spots (${Math.min(10,weakIds().length)})</button></div>`:""}
  <h3 class=mkt>Include in my review</h3><div class="chips incs"><button class=chip data-inc=v aria-pressed="${INC.v}"><b>Verbs</b></button><button class=chip data-inc=w aria-pressed="${INC.w}"><b>Phrases & grammar</b></button></div>
  <details class="mkd${INC.v?"":" off"}" data-k=v ${INC.v&&op("v")?"open":""}><summary>Verbs <span>${INC.v?lvn+" · "+vn+" · "+(tn||"no forms"):"Not included"}</span></summary>${INC.v?`<h4>Level</h4><div class=seg>${LV.map(([k,e,d])=>`<button data-l="${k}" aria-pressed="${sel.l.size==1&&sel.l.has(k)}">${e}</button>`).join("")}<button data-l=0 aria-pressed="${sel.l.size>1}" class=segmix>Mix</button></div><p class=segd>${ld}</p><h4>Verb groups</h4><div class="chips vg">${GR().map(g=>`<button class=chip data-v="${g.n}" aria-pressed="${sel.v.has(g.n)}"><b dir=rtl>${g.s}</b><small>${g.n} · ${g.k} verbs</small></button>`).join('')}</div><h4>Forms</h4><div class="chips ft">${TENSES.map(([k,e,h])=>`<button class=chip data-t="${k}" aria-pressed="${sel.t.has(k)}"><b dir=rtl>${h}</b><small>${e}</small></button>`).join("")}</div>`:""}</details>
@@ -5115,11 +5115,24 @@ function wSetup(){
  const note=WS.d=="prep"?"In Hebrew the pronoun joins the preposition as an ending: <b dir=rtl>שלי</b> = mine, <b dir=rtl>לי</b> = to me, <b dir=rtl>איתי</b> = with me, <b dir=rtl>יש לי</b> = I have. You (one person) is written the same for a man and a woman.":WS.d=="adj"?"In Hebrew the adjective comes after the noun and agrees with it in gender and number: <b dir=rtl>בית גדול</b> (a big house), <b dir=rtl>דירה גדולה</b> (a big apartment), <b dir=rtl>בתים גדולים</b> (big houses). Watch out: some masculine nouns end in -ot in the plural, but they still take a masculine plural adjective: <b dir=rtl>שולחנות גדולים</b> (big tables).":WS.d=="tp"?"Prepositions tell you where or when something happens. Some are written together with the next word (<b dir=rtl>ב</b>, <b dir=rtl>ל</b>, <b dir=rtl>מ</b>) and some stand alone.":WS.d=="q"?"Five question words you will use every day: <b dir=rtl>איפה</b> where, <b dir=rtl>מתי</b> when, <b dir=rtl>למה</b> why, <b dir=rtl>איך</b> how, <b dir=rtl>כמה</b> how much / how many.":WS.d=="num"?"Hebrew numbers have a masculine and a feminine form. Use the masculine with masculine things (<b dir=rtl>שלושה ספרים</b> = three books) and the feminine with feminine things (<b dir=rtl>שלוש כוסות</b> = three cups). When you just count aloud, Israelis usually use the feminine. Tens (20, 30, 40…) are the same for both.":WS.d=="imp"?"Each command has a form for a man, a woman, and a group.":"Short expressions that Israelis use every day.";
  return `<h4>What to practice</h4><div class="chips wd">${nb}</div><p class=sub style="margin-top:10px">${note}</p>${sub}<details class=wdet><summary>📖 Show the table</summary>${wTable()}</details>`;
 }
+// ---- lessons from the teacher, one set per student (students/<id>.json) ----
+let LES=null,LNK=false;try{LNK=localStorage.getItem("hvp_nk")==="1"}catch(e){}
+const lesItems=()=>LES?LES.l.flatMap(L=>[...L.w.map((_,i)=>"w:l:"+L.id+":w:"+i),...L.s.map((_,i)=>"w:l:"+L.id+":s:"+i)]):[];
+function lesLoad(){
+ let id="";try{id=new URLSearchParams(location.search).get("s")||localStorage.getItem("hvp_stu")||""}catch(e){}
+ if(!/^[a-z0-9]{4,16}$/.test(id)||!location.protocol.startsWith("http"))return;
+ try{const c=JSON.parse(localStorage.getItem("hvp_les")||"null");if(c&&c.id==id)LES=c}catch(e){}
+ fetch("students/"+id+".json?"+Date.now()).then(r=>r.ok?r.json():Promise.reject()).then(j=>{j.id=id;LES=j;try{localStorage.setItem("hvp_stu",id);localStorage.setItem("hvp_les",JSON.stringify(j))}catch(e){}if(tab=="home"&&!R)home()}).catch(()=>{});
+}
+document.addEventListener("click",e=>{if(!e.target.closest("[data-nk]"))return;LNK=!LNK;try{localStorage.setItem("hvp_nk",LNK?"1":"0")}catch(x){}
+ document.querySelectorAll("[data-nk]").forEach(b=>b.setAttribute("aria-pressed",LNK));
+ if(R&&R.cur&&R.cur.m.nk){const sh=R.shown;R.cur.m=rvWord(R.cur.id);rvDraw();if(sh){R.shown=false;rvShow()}}});
 function words(){home()}
 const wcap=s=>s[0].toUpperCase()+s.slice(1);
 function wMake(id){
  // returns {kind, ins, l1, l2, o:[{t,tr,r,ok}], full:{he,en}, meta}
  const[,d,a,b]=id.split(":");
+ if(d=="l"){const[,,lid,k,ix]=id.split(":"),L=LES.l.find(x=>x.id==lid),x=(k=="w"?L.w:L.s)[+ix];return{meta:"From your lessons · "+LES.name+" · "+(k=="w"?"word":"sentence"),full:{he:LNK?x.n:x.h,en:x.en},ans:{t:x.t},nk:1}}
  const pick=(arr,key,ans,n)=>{const seen=new Set([ans]),r=[];shuf(arr).forEach(x=>{if(!seen.has(x[key])&&r.length<n){seen.add(x[key]);r.push(x)}});return r};
  if(d=="poss"){
   const n=WN[+a],pi=+b,pl=Math.random()<.5,he="ה"+(pl?n[2]:n[0]),en=WP[pi][2]+" "+(pl?n[3]:n[1]);
@@ -5383,7 +5396,7 @@ IMPX.split("\n").forEach(l=>{const[id,f]=l.split(";"),v=V.find(x=>x.id==id);if(v
 // Spoken-Hebrew pronunciation: when the stem ends in ד before a past ending beginning with ת, an "e" is heard (amadeti, not amadti)
 V.forEach(v=>(v.past||[]).forEach(f=>{if(/ש(תי|ת|תם|תן)$/.test(f.h.replace(/[\u05B0-\u05C7]/g,"")))f.t=f.t.replace(/sht(i|a|em|en)?(?=$|[\s\/])/g,(m,x)=>"st"+(x||""))}));
 V.forEach(v=>(v.past||[]).forEach(f=>{if(/ד(תי|ת|תם|תן)$/.test(f.h.replace(/[\u05B0-\u05C7]/g,""))&&/dt(i|a|em|en)?$/.test(f.t))f.t=f.t.replace(/dt(i|a|em|en)?$/,(m,x)=>"det"+(x||""))}));
-home();
+lesLoad();home();
 </script>
 <script>
 const GR_SRC=`@1|neighbor|שְׁכֵנָה חֲדָשָׁה|A new neighbor|יוֹסִי|Yossi|מִיכַל|Michal
