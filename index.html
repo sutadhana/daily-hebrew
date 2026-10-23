@@ -267,6 +267,7 @@ body.hasnudge{padding-bottom:84px}
 @media(min-width:760px){.mkd .chips.vg{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}.mkd .chips.ft{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.mkd .chip{min-width:0;padding:8px 4px}.mkd .chip b{font-size:1.05rem}.mkd .chip small{font-size:.68rem;line-height:1.25}.mkd summary{pointer-events:none}.mkd summary span{display:none}}
 .incs{margin-bottom:6px}.mkd.off{opacity:.6}.mkd+.mkd{margin-top:12px}.chips.wd .chip{text-align:left}@media(min-width:760px){.mkd summary span{display:inline}.mkd .chips.wd{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.mkd .chips.wd .chip{padding:10px}}
 .mkd .seg{margin-top:4px}
+.bkc{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px;margin-top:16px;text-align:center;box-shadow:var(--sh)}.bkc>b{display:block;font-size:1.05rem;margin-bottom:4px}.bkc>span{display:block;color:var(--mut);font-size:.9rem;margin-bottom:12px}.bkc .btn{display:inline-block;text-decoration:none;font-size:.95rem}
 </style>
 </head>
 <body>
@@ -2646,7 +2647,7 @@ function rvEnd(){
  $("#app").innerHTML=`<div class="card center"><div class=meta>Review</div><h1 style="margin:.2em 0">${R&&R.start?"Done for now":"Nothing to review"}</h1>
  <p class=sub>${nxt?"Your next cards are due "+relDay(nxt)+".":"Cards you start will come back here at the right time."}</p>
  <div class=gs><div><b>${R?R.done:0}</b>reviewed now</div><div><b>${ks.length}</b>cards started</div><div><b>${ks.filter(k=>lrn(store[k])).length}</b>well learned</div></div>
- <p style="margin-top:18px">${more?`<button class=btn data-a=more>Review more</button> `:""}${more10?`<button class="btn alt" data-a=more10>Learn 10 more new cards today</button> `:""}${bk}</p></div>`;
+ <p style="margin-top:18px">${more?`<button class=btn data-a=more>Review more</button> `:""}${more10?`<button class="btn alt" data-a=more10>Learn 10 more new cards today</button> `:""}${bk}</p></div>${ks.length>=10&&R&&R.done>=5?`<div class=bkc><b>Enjoying Daily Hebrew?</b><span>Practice speaking with a real teacher.</span><a class=btn data-bk=1 href="${POP_URL('session-end')}" target=_blank rel=noopener>Book a free introductory meeting with Mor ↗</a></div>`:""}`;
 }
 let INC={v:true,w:true};try{Object.assign(INC,JSON.parse(localStorage.getItem("hvp_inc")||"{}"))}catch(e){}
 if(!INC.v&&!INC.w)INC={v:true,w:true};
@@ -2707,7 +2708,7 @@ function nudge(){
 }
 document.addEventListener('click',e=>{
  if(e.target.closest('#nudgex')){ACT.pop.dis=Date.now();actSave();nudgeOff();return}
- const a=e.target.closest('#nudgego,#brand');
+ const a=e.target.closest('#nudgego,#brand,[data-bk]');
  if(a){actDay().w++;if(a.id=='nudgego'){ACT.pop.clk=Date.now();nudgeOff()}actSave();sync()}
 });
 setInterval(()=>{if(document.hidden||Date.now()-lastInt>45000)return;SESS+=10;actDay().s+=10;ACT.tot=(ACT.tot||0)+10;if(SESS%60==0){actSave();sync()}a2Tip();nudge()},10000);
@@ -4345,6 +4346,7 @@ function tabs(cur){
 (async()=>{try{if(!window.claude)return;const u=await claude.use('user');DB=await claude.use('db');if(u){UID=await u.id();TEACH=await u.isOwner();if(!NAME){const me=await u.me();NAME=(me&&me.name)||''}}if(!R)show()}catch(e){}})();
 function prog(){
  tab='prog';R=null;
+ const lvnP=sel.l.size>1?"mixed":(LV.find(x=>x[0]==[...sel.l][0])||[0,"Beginner"])[1].toLowerCase();
  const r=stats(store),z=store._s||{a:0,c:0},cs=[];
  r.g.forEach(x=>TENSES.forEach(([t,e])=>{const c=x.t[t];if(c.s)cs.push({l:x.s+' ('+x.n+') '+e,p:pct(c.m,c.n)})}));
  cs.sort((a,b)=>a.p-b.p);
@@ -4354,7 +4356,7 @@ function prog(){
  ${cs.length?`<p><b>Needs work:</b> <span dir=auto>${cs[0].l}</span> (${cs[0].p}%)${cs.length>1?`<br><b>Strongest:</b> <span dir=auto>${cs[cs.length-1].l}</span> (${cs[cs.length-1].p}%)`:''}</p>`:'<p class=sub>Review a few cards and your summary will appear here.</p>'}
  <h2>By group and tense</h2><div style='overflow-x:auto'><table class=tb><tr><th>Group</th>${TENSES.map(([k,e])=>`<th>${e}</th>`).join('')}<th>All</th></tr>${r.g.map(x=>`<tr><td><b dir=rtl>${x.s}</b><br><small>${x.n}</small></td>${TENSES.map(([t])=>`<td>${cell(x.t[t])}</td>`).join('')}<td><b>${pct(gm(x),x.tf)}%</b></td></tr>`).join('')}</table></div>
  <p class=sub style='font-size:.8rem'>A form is well learned once its next review is 3 weeks or more away.</p>
- ${wprog().some(x=>x[1].s)?`<h2>Phrases & grammar</h2><div style='overflow-x:auto'><table class=tb><tr><th>Practice</th><th>Started</th><th>Well learned</th></tr>${wprog().map(([n,g])=>`<tr><td>${n}</td><td>${g.s}/${g.n}</td><td>${g.m}/${g.n}</td></tr>`).join('')}</table></div>`:''}<h2>Share with your teacher</h2><label>Your name <input class=l id=nm value='${esc(NAME)}' style='margin:0'></label>
+ ${wprog().some(x=>x[1].s)?`<h2>Phrases & grammar</h2><div style='overflow-x:auto'><table class=tb><tr><th>Practice</th><th>Started</th><th>Well learned</th></tr>${wprog().map(([n,g])=>`<tr><td>${n}</td><td>${g.s}/${g.n}</td><td>${g.m}/${g.n}</td></tr>`).join('')}</table></div>`:''}<div class=bkc><b>Practice speaking with a teacher</b><span>You are practicing at the <b>${lvnP}</b> level. Take it into a real conversation.</span><a class=btn data-bk=1 href="${POP_URL('progress')}" target=_blank rel=noopener>Book a free introductory meeting with Mor ↗</a></div><h2>Share with your teacher</h2><label>Your name <input class=l id=nm value='${esc(NAME)}' style='margin:0'></label>
  <p class=sub>${DB&&UID?'Your progress is shared with your teacher automatically.':'Progress is saved on this device. Use the button to copy a report for your teacher.'}</p>
  <button class='btn alt' id=rp>Copy my report</button><div id=rpt></div>`;
 }
