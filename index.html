@@ -250,7 +250,7 @@ body.hasnudge{padding-bottom:84px}
 .tglt .sw::after{content:"";position:absolute;top:2px;left:2px;width:8px;height:8px;border-radius:50%;background:var(--card);transition:transform .15s}
 .tglt[aria-pressed=true] .sw{background:var(--ac)}.tglt[aria-pressed=true] .sw::after{transform:translateX(10px)}
 .grbar,.grhd{align-items:center}.pnh{display:block;margin-top:2px;font-size:.78rem;color:var(--mut);opacity:.85}
-.rvc .rb{border-top:1px solid var(--bd);margin-top:16px;padding-top:14px}.rvs{margin-top:18px}.rvs .btn{min-width:200px;padding:14px 22px;font-size:1.05rem}
+.rvc .rb{border-top:1px solid var(--bd);margin-top:16px;padding-top:14px}.rvs{margin-top:18px}.rvs #rskip{margin-top:20px}.rvs .btn{min-width:200px;padding:14px 22px;font-size:1.05rem}
 .ra{text-align:center;margin-bottom:10px}.rah{font:700 2.1rem/1.3 Heebo,"Arial Hebrew",Arial,sans-serif;color:var(--ac)}.rat{color:var(--mut);font-size:1rem}.ram{font-size:.9rem;color:var(--mut);margin-top:4px}
 .rfull{text-align:center}.rfull .rtr{font-size:.9rem;color:var(--mut);margin:2px 0 6px}.rfull .en{margin-top:6px}
 .grades{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}.grades button{border:1.5px solid var(--bd);background:var(--card);color:var(--fg);border-radius:12px;padding:10px 4px;cursor:pointer;font:600 .95rem system-ui;display:flex;flex-direction:column;align-items:center;gap:2px}.grades button small{font:500 .75rem system-ui;color:var(--mut)}.grades button.good{background:var(--ac);color:var(--acfg);border-color:var(--ac)}.grades button.good small{color:inherit;opacity:.85}.grades button:hover{border-color:var(--ac)}
@@ -268,6 +268,9 @@ body.hasnudge{padding-bottom:84px}
 .incs{margin-bottom:6px}.mkd.off{opacity:.6}.mkd+.mkd{margin-top:12px}.chips.wd .chip{text-align:left}@media(min-width:760px){.mkd summary span{display:inline}.mkd .chips.wd{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.mkd .chips.wd .chip{padding:10px}}
 .mkd .seg{margin-top:4px}
 .bkc{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px;margin-top:16px;text-align:center;box-shadow:var(--sh)}.bkc>b{display:block;font-size:1.05rem;margin-bottom:4px}.bkc>span{display:block;color:var(--mut);font-size:.9rem;margin-bottom:12px}.bkc .btn{display:inline-block;text-decoration:none;font-size:.95rem}
+.rt.lr td.l{width:55%;vertical-align:middle}.rt.lr td.l b{display:block;font:600 1.02rem system-ui;color:var(--fg)}.rt.lr td.l small{display:block;color:var(--mut);font-size:.8rem;margin-top:1px}.rt.lr td.l i.tr{display:block;font-style:normal;color:var(--mut);font-size:.95rem;margin-top:2px}
+.rt.lr td.h{width:45%;text-align:right;font-size:1.6rem;white-space:nowrap}.hpn{font:500 .8rem system-ui;color:var(--mut)}
+.rt td.exr small{text-align:left}.rt td.exr .exh{text-align:right}
 </style>
 </head>
 <body>
@@ -4421,9 +4424,11 @@ function home(){
 let REF=null;
 const PTAG=["m. singular","f. singular","m. plural","f. plural"];
 const plab=(t,i)=>[...new Set((PRON[t][i]||[]).map(p=>p[0]))].map(x=>'<span dir=rtl>'+x+'</span>').join(' / ')+(t=='present'?'<small>'+PTAG[i]+'</small>':t=='imperative'?'<small>'+['to a man','to a woman','to a group'][i]+'</small>':'');
+const elab=(t,i)=>{const P=PRON[t][i]||[];if(t=='present')return [...new Set(P.map(p=>p[1]))].join(' / ')+'<small>'+PTAG[i]+'</small>';return P.map(p=>p[1]+(p[2]?' ('+p[2]+')':'')).join(' / ')};
+const hpn=(t,i)=>`<span class=hpn>${[...new Set((PRON[t][i]||[]).map(p=>p[0]))].join(' / ')}</span> `;
 function refTable(v,t,hl){
  const rows=t=="imperative"?v.imp:v[t];if(!rows||!rows.length)return"";const e=TENSES.find(x=>x[0]==t),al=ALLOW(v,t);
- return`<table class=rt><tr><th colspan=3>${e[1]} · <span dir=rtl>${e[2]}</span></th></tr>${rows.map((f,i)=>!al.includes(i)?'':`<tr class="${hl==t+":"+i?"hl":""}"><td class=p>${plab(t,i)}</td><td class=h>${f.h}</td><td class=t>${f.t}</td></tr>`).join("")}</table>`;
+ return`<table class="rt lr"><tr><th colspan=2>${e[1]} · <span dir=rtl>${e[2]}</span></th></tr>${rows.map((f,i)=>!al.includes(i)?'':`<tr class="${hl==t+":"+i?"hl":""}"><td class=l><b>${elab(t,i)}</b><i class=tr>${f.t}</i></td><td class=h>${t=='infinitive'?'':hpn(t,i)}${f.h}</td></tr>`).join("")}</table>`;
 }
 function refVerbHtml(v,hl){
  return`<div class=center style="margin-bottom:8px"><div class=he style="margin:0">${v.infinitive.h}</div><div class=meta>${v.infinitive.t} · ${v.en[0]} · ${v.n}</div></div>${v.third?`<div class=note>This verb is used only in the third person (he / she / they), like <b dir=rtl>${v.subj[0][0]}</b> = ${v.subj[0][1].toLowerCase()}.</div>`:''}
@@ -5086,18 +5091,19 @@ function wItems(){
  if(WS.d=="imp")return WI.flatMap((v,vi)=>[0,1,2].map(f=>wkey("imp",vi,f)));
  return WPH.map((x,i)=>({x,i})).filter(o=>WS.c.has(o.x.c)).map(o=>wkey("ph",o.i));
 }
-const wtd=t=>`<td class=h dir=rtl>${t.h}</td><td class=t>${t.t}</td>`;
-const wtm=t=>`<td class=h dir=rtl>${t.h}</td><td class=t>${t.t}${t.m?`<small>${t.m}</small>`:""}</td>`;
+const wl=(en,tr,sm)=>`<td class=l><b>${en}</b>${sm?`<small>${sm}</small>`:""}<i class=tr>${tr}</i></td>`;
+const wtd=t=>`<td class=h dir=rtl>${t.h}</td>`;
+
 function wTable(){
- const rows=a=>`<table class=rt><tr><th colspan=${a[2]||3}>${a[0]}</th></tr>${a[1]}</table>`;
- if(WS.d=="poss")return rows(["של · shel (of) = belonging to",WP.map((p,i)=>`<tr><td class=p>${p[0]}<small>${p[2]}</small></td>${wtd(WSH[i])}</tr>`).join("")]);
- if(WS.d=="prep")return WPR.filter(p=>WS.p.has(p.k)).map(p=>rows([`<span dir=rtl>${p.he}</span> · ${p.en}`,WP.map((q,i)=>`<tr><td class=p>${q[0]}<small>${p.o=="pos"?q[2]:p.o=="sub"?q[1]:q[3]}</small></td>${wtm(p.F[i])}</tr>`).join("")])).join("");
+ const rows=a=>`<table class="rt lr"><tr><th colspan=${a[2]||2}>${a[0]}</th></tr>${a[1]}</table>`;
+ if(WS.d=="poss")return rows(["של · shel (of) = belonging to",WP.map((p,i)=>`<tr>${wl(p[2],WSH[i].t)}${wtd(WSH[i])}</tr>`).join("")]);
+ if(WS.d=="prep")return WPR.filter(p=>WS.p.has(p.k)).map(p=>rows([`<span dir=rtl>${p.he}</span> · ${p.en}`,WP.map((q,i)=>`<tr>${wl(p.o=="pos"?q[2]:p.o=="sub"?q[1]:q[3],p.F[i].t,p.F[i].m||"")}${wtd(p.F[i])}</tr>`).join("")])).join("");
  if(WS.d=="adj")return ADJG.filter(g=>WS.a.has(g[0])).map(g=>`<table class="rt adjt"><tr><th colspan=4>${g[1]}</th></tr><tr class=nh><th>Masc. sing.</th><th>Fem. sing.</th><th>Masc. plural</th><th>Fem. plural</th></tr>${ADJ.filter(a=>a.g==g[0]).map(a=>`<tr class=ar><td colspan=4>${a.en}</td></tr><tr>${a.F.map(w=>`<td class="h n" dir=rtl>${w.h}<small>${w.t}</small></td>`).join("")}</tr>`).join("")}</table>`).join("");
- if(WS.d=="tp")return TPG.filter(g=>WS.t.has(g[0])).map(g=>rows([g[1],TPL.filter(x=>x.g==g[0]).map(x=>`<tr><td class="h n" dir=rtl>${x.h}<small>${x.t}</small></td><td class=t><b>${x.en}</b></td></tr><tr class=ex><td class=exr colspan=2><span class=exh dir=rtl>${x.x.he.replace("{P}",x.h)}</span><small>${x.x.tr} · ${x.x.en}</small>${x.x2?`<span class=exh dir=rtl style="margin-top:8px">${x.x2.he}</span><small>${x.x2.tr} · ${x.x2.en}</small>`:""}</td></tr>`).join(""),2])).join("");
- if(WS.d=="q")return QW.map(w=>rows([`<span dir=rtl>${w.h}</span> · ${w.t} = ${w.en}`,w.s.map(q=>`<tr><td class="h n" dir=rtl style="width:55%">${q[0]}<small>${q[1]}</small></td><td class=t>${q[2]}</td></tr>`).join(""),2])).join("");
+ if(WS.d=="tp")return TPG.filter(g=>WS.t.has(g[0])).map(g=>rows([g[1],TPL.filter(x=>x.g==g[0]).map(x=>`<tr>${wl(x.en,x.t)}<td class="h" dir=rtl>${x.h}</td></tr><tr class=ex><td class=exr colspan=2><span class=exh dir=rtl>${x.x.he.replace("{P}",x.h)}</span><small>${x.x.tr} · ${x.x.en}</small>${x.x2?`<span class=exh dir=rtl style="margin-top:8px">${x.x2.he}</span><small>${x.x2.tr} · ${x.x2.en}</small>`:""}</td></tr>`).join(""),2])).join("");
+ if(WS.d=="q")return QW.map(w=>rows([`<span dir=rtl>${w.h}</span> · ${w.t} = ${w.en}`,w.s.map(q=>`<tr>${wl(q[2],q[1])}<td class="h" dir=rtl style="font-size:1.45rem">${q[0]}</td></tr>`).join(""),2])).join("");
  if(WS.d=="num")return NR.filter(r=>WS.n.has(r[0])).map(r=>rows([r[1]+" · "+r[2],`<tr class=nh><th>Number</th><th style="text-align:right">Masculine</th><th style="text-align:right">Feminine</th></tr>`+NUM.filter(x=>x.r==r[0]).map(x=>`<tr><td class=p>${nfmt(x.n)}<small>${x.en}</small></td>${x.same?`<td class="h n" dir=rtl colspan=2>${x.m.h}<small>${x.m.t}</small></td>`:`<td class="h n" dir=rtl>${x.m.h}<small>${x.m.t}</small></td><td class="h n" dir=rtl>${x.f.h}<small>${x.f.t}</small></td>`}</tr>`).join(""),3])).join("");
- if(WS.d=="imp")return rows(["Commands: to a man · to a woman · to a group",WI.map(v=>`<tr><td class=p>${v.en}</td><td class=h dir=rtl>${v.f.map(x=>`${x.h}<small>${x.t}</small>`).join(" · ")}</td><td></td></tr>`).join("")]);
- return WCAT.filter(c=>WS.c.has(c[0])).map(c=>rows([c[1],WPH.filter(x=>x.c==c[0]).map(x=>`<tr><td class=p>${x.e}</td>${wtd(x)}</tr>`).join("")])).join("");
+ if(WS.d=="imp")return rows(["Commands: to a man · to a woman · to a group",WI.map(v=>`<tr>${wl(v.en,v.f.map(x=>x.t).join(" · "))}<td class=h dir=rtl style="font-size:1.5rem">${v.f.map(x=>x.h).join(" · ")}</td></tr>`).join("")]);
+ return WCAT.filter(c=>WS.c.has(c[0])).map(c=>rows([c[1],WPH.filter(x=>x.c==c[0]).map(x=>`<tr>${wl(x.e,x.t)}<td class=h dir=rtl style="font-size:1.5rem">${x.h}</td></tr>`).join("")])).join("");
 }
 function wSetup(){
  const nb=WDECKS.map(([k,h,e])=>`<button class=chip data-wd="${k}" aria-pressed="${WS.d==k}"><b dir=rtl>${h}</b><small>${e}</small></button>`).join("");
