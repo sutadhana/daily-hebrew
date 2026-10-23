@@ -2647,7 +2647,7 @@ function rvEnd(){
  $("#app").innerHTML=`<div class="card center"><div class=meta>Review</div><h1 style="margin:.2em 0">${R&&R.start?"Done for now":"Nothing to review"}</h1>
  <p class=sub>${nxt?"Your next cards are due "+relDay(nxt)+".":"Cards you start will come back here at the right time."}</p>
  <div class=gs><div><b>${R?R.done:0}</b>reviewed now</div><div><b>${ks.length}</b>cards started</div><div><b>${ks.filter(k=>lrn(store[k])).length}</b>well learned</div></div>
- <p style="margin-top:18px">${more?`<button class=btn data-a=more>Review more</button> `:""}${more10?`<button class="btn alt" data-a=more10>Learn 10 more new cards today</button> `:""}${bk}</p></div>${ks.length>=10&&R&&R.done>=5?`<div class=bkc><b>Enjoying Daily Hebrew?</b><span>Practice speaking with a real teacher.</span><a class=btn data-bk=1 href="${POP_URL('session-end')}" target=_blank rel=noopener>Book a free introductory meeting with Mor ↗</a></div>`:""}`;
+ <p style="margin-top:18px">${more?`<button class=btn data-a=more>Review more</button> `:""}${more10?`<button class="btn alt" data-a=more10>Learn 10 more new cards today</button> `:""}${bk}</p></div>${ks.length>=10&&R&&R.done>=5?`<div class=bkc><b>Enjoying Daily Hebrew?</b><span>Practice speaking with a real teacher.</span><a class=btn data-bk=1 href="${POP_URL('session-end')}" target=_blank rel=noopener>Book a free introductory meeting with Mor ↗</a></div>`:""}${R&&R.done>=1?`<div class=bkc><b>Know someone learning Hebrew?</b><span>Send them this free app.</span><button class="btn alt" id=shr>Share Daily Hebrew</button><div id=shm></div></div>`:""}`;
 }
 let INC={v:true,w:true};try{Object.assign(INC,JSON.parse(localStorage.getItem("hvp_inc")||"{}"))}catch(e){}
 if(!INC.v&&!INC.w)INC={v:true,w:true};
@@ -4480,6 +4480,10 @@ document.addEventListener("click",e=>{
  if(b.id=="wk"){weakGo();return}
  if(b.id=="qk"){const sv=sel.v,st=sel.t;sel.v=new Set(GR().map(g=>g.n));sel.t=new Set(TENSES.map(x=>x[0]));const ids=items();sel.v=sv;sel.t=st;rvStart(ids,{from:"home",cap:10});return}
  if(D.inc!==undefined){const k=D.inc,o=k=="v"?"w":"v";if(INC[k]&&!INC[o])return;INC[k]=!INC[k];try{localStorage.setItem("hvp_inc",JSON.stringify(INC))}catch(e){}home();return}
+ if(b.id=="shr"){const u="https://practice.hebrew-with-mor.com/?utm_source=app&utm_medium=share",t="Daily Hebrew - a free app to practice Hebrew",m=document.getElementById("shm");
+  const manual=()=>{if(m)m.innerHTML=`<input class=l readonly value="${u}" onclick="this.select()" style="margin-top:10px">`};
+  const copy=()=>{try{navigator.clipboard.writeText(u).then(()=>{b.textContent="Link copied ✓"},manual)}catch(e){manual()}};
+  if(navigator.share)navigator.share({title:t,text:t,url:u}).catch(()=>{});else copy();return}
  if(b.id=="show"){rvShow();return}
  if(D.gr!==undefined){rvGrade(+D.gr);return}
  if(b.id=="rskip"){rvSkip();return}
