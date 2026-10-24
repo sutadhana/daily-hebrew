@@ -1,5 +1,5 @@
 // Offline support. Bump VERSION whenever you publish a new index.html.
-const VERSION = "v11";
+const VERSION = "v12";
 const CACHE = "daily-hebrew-" + VERSION;
 const SHELL = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png", "favicon.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });

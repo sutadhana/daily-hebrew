@@ -257,7 +257,7 @@ body.rev #a2bar,body.modal-open #a2bar,#a2ov~#a2bar{display:none}body.has-a2{pad
 .grades{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}.grades button{border:1.5px solid var(--bd);background:var(--card);color:var(--fg);border-radius:12px;padding:10px 4px;cursor:pointer;font:600 .95rem system-ui;display:flex;flex-direction:column;align-items:center;gap:2px}.grades button small{font:500 .75rem system-ui;color:var(--mut)}.grades button.good{background:var(--ac);color:var(--acfg);border-color:var(--ac)}.grades button.good small{color:inherit;opacity:.85}.grades button:hover{border-color:var(--ac)}
 .hw.hl{background:color-mix(in srgb,var(--ac) 22%,transparent)}
 .mkh{display:flex;justify-content:space-between;align-items:center;margin:14px 0 14px}.mkh b{font:700 1.6rem system-ui;display:block;color:var(--ac);letter-spacing:-.01em}.mkh small{color:var(--mut)}.mki{display:flex;gap:8px}.mki .chip{padding:10px 14px;min-width:0;min-height:0}
-.tdy2{display:grid;gap:12px}.tdy2 .today{padding:16px}.tdy2 .tn b{font-size:1.5rem}.tdy2 .today .btn{font-size:1rem}.today.les{background:var(--acd,#47553f)}@media(min-width:760px){.tdy2{grid-template-columns:1fr 1fr}}.rfull.les .hwt{display:none}
+.go2{width:100%;max-width:420px;font-size:1.1rem;padding:15px}.tdy2{display:grid;gap:12px}.tdy2 .today{padding:16px}.tdy2 .tn b{font-size:1.5rem}.tdy2 .today .btn{font-size:1rem}.today.les{background:var(--acd,#47553f)}@media(min-width:760px){.tdy2{grid-template-columns:1fr 1fr}}.rfull.les .hwt{display:none}
 .today{background:var(--ac);color:var(--acfg);border-radius:20px;padding:20px;text-align:center}.today .tl{font:600 .85rem system-ui;letter-spacing:.08em;text-transform:uppercase;opacity:.8}.today .tn{font:500 1.05rem system-ui;margin:6px 0 14px}.today .tn b{font-size:1.9rem}.today .btn{background:var(--acfg);color:var(--ac);font-size:1.15rem;padding:15px;width:100%;box-shadow:none}.today .btn:disabled{opacity:.6}.today .tsub{font-size:.85rem;opacity:.85;margin-top:10px}.today .tlink{background:none;border:0;color:inherit;text-decoration:underline;margin-top:10px;font:600 .9rem system-ui;cursor:pointer}
 .qrow{display:flex;gap:8px;margin:12px 0 0}.qrow .btn{flex:1;padding:12px 8px;font-size:.9rem}
 .howto{background:var(--chip);border-radius:14px;padding:12px 14px;margin:0 0 14px;font-size:.9rem;color:var(--mut)}.howto .ht{font-weight:700;color:var(--fg);margin-bottom:2px}.howto em{font-style:normal;font-weight:700;color:var(--fg)}
@@ -2539,7 +2539,7 @@ function S(v,t,i,lv){
  let hq="",eq="";
  if(lv>=2){hq+=" "+c[0][0];eq+=" "+c[0][1]}
  if(lv>=4){hq+=" "+c[1][0];eq+=" "+c[1][1]}
- if(lv>=3&&!inf&&t!="imperative"&&!(lv>=4&&/^(בבוקר|בלילה|בערב|בחורף|בקיץ|ביום|בשבת|בשבוע|בכל|כל |פעם|תמיד|לפני|אחרי|מוקדם|בזמן|מחר|היום|שוב|פתאום|בסוף|לפעמים|בשש|בשמונה|מדי|מראש|בקרוב|מיד|השנה|בספטמבר|בצהריים|בחג|בתחילת|פעמיים|בשבע|בעשר)/.test(c[1][0]))){hq+=" "+TM[t][0];eq+=" "+TM[t][1]}
+ if(lv>=3&&!inf&&t!="imperative"&&!(lv>=4&&/^(בבוקר|בלילה|בערב|בחורף|בקיץ|ביום|בשבת|בשבוע|בכל|כל |פעם|תמיד|לפני|אחרי|מוקדם|בזמן|מחר|היום|שוב|פתאום|בסוף|לפעמים|בשש|בשמונה|מדי|מראש|בקרוב|מיד|השנה|בספטמבר|בצהריים|בחג|בתחילת|פעמיים|בשבע|בעשר)/.test(c[1][0]))){if(t!="present"||Math.random()<.2){const tm=t=="present"&&Math.random()<.4?["היום","today"]:TM[t];hq+=" "+tm[0];eq+=" "+tm[1]}}
  if(inf&&lv==1)eq="";else eq+=".";
  const tag=pro&&pro[2]?" ("+pro[2]+")":"";
  return{pro,sg,f,hp,dp:hp===""&&hp0?hp0+" · "+pro[1]:"",hq,ep,ew,eq,tag,he:(hp+" "+f.h+hq).trim(),en:(ep+" "+ew+eq).trim()+tag};
@@ -2571,7 +2571,7 @@ const FSRS=(()=>{
  function preview(c,now){now=now||Date.now();return[1,2,3,4].map(g=>{const ms=review(c,g,now).d-now;if(ms<DAY)return Math.max(1,Math.round(ms/MIN))+" min";const d=Math.round(ms/DAY);if(d<31)return d+(d==1?" day":" days");if(d<365)return Math.round(d/30)+" mo";return(d/365).toFixed(1)+" yr"})}
  return{review,preview}
 })();
-const LEARNED=21,NEWMAX=20;
+const LEARNED=21,NEWMAX=1e6;
 const lrn=e=>!!e&&(e.s!==undefined?e.s>=LEARNED:e.b>=3);
 let ND={day:"",n:0,x:0,nw:0,xw:0};try{ND=Object.assign(ND,JSON.parse(localStorage.getItem("hvp_nd")||"{}"))}catch(e){}
 const ndSave=()=>{try{localStorage.setItem("hvp_nd",JSON.stringify(ND))}catch(e){}};
@@ -2650,9 +2650,9 @@ function rvEnd(){
  const ids=(R&&typeof R.src=="function"?R.src():R&&R.ids)||[],now=Date.now(),due=ids.filter(i=>store[i]&&store[i].d<=now).length,fresh=ids.filter(i=>!store[i]).length,more=!(R&&R.o&&R.o.weak)&&avl(ids)>0,more10=!(R&&R.o&&R.o.weak)&&!more&&fresh>0;
  const bk=`<button class="btn alt" data-a=home>← Practice</button>`;
  $("#app").innerHTML=`<div class="card center"><div class=meta>Review</div><h1 style="margin:.2em 0">${R&&R.start?"Done for now":"Nothing to review"}</h1>
- <p class=sub>${nxt?"Your next cards are due "+relDay(nxt)+".":"Cards you start will come back here at the right time."}</p>
+ <p class=sub>${nxt?"Your next cards are due "+relDay(nxt)+".":"Cards you start will come back here at the right time."}${!more&&R&&R.start?" That is everything in this selection. Go back to Practice to add more verbs or topics.":""}</p>
  <div class=gs><div><b>${R?R.done:0}</b>reviewed now</div><div><b>${ks.length}</b>cards started</div><div><b>${ks.filter(k=>lrn(store[k])).length}</b>well learned</div></div>
- <p style="margin-top:18px">${more?`<button class=btn data-a=more>Review more</button> `:""}${more10?`<button class="btn alt" data-a=more10>Learn 10 more new cards today</button> `:""}${bk}</p></div>${ks.length>=10&&R&&R.done>=5?`<div class=bkc><b>Enjoying Daily Hebrew?</b><span>Practice speaking with a real teacher.</span><a class=btn data-bk=1 href="${POP_URL('session-end')}" target=_blank rel=noopener>Book a free introductory meeting with Mor ↗</a></div>`:""}${R&&R.done>=1?`<div class=bkc><b>Know someone learning Hebrew?</b><span>Send them this free app.</span><button class="btn alt" id=shr>Share Daily Hebrew</button><div id=shm></div></div>`:""}`;
+ <p style="margin-top:18px">${more?`<button class=btn data-a=more>Practice more of the same</button> `:""}${bk}</p></div>${ks.length>=10&&R&&R.done>=5?`<div class=bkc><b>Enjoying Daily Hebrew?</b><span>Practice speaking with a real teacher.</span><a class=btn data-bk=1 href="${POP_URL('session-end')}" target=_blank rel=noopener>Book a free introductory meeting with Mor ↗</a></div>`:""}${R&&R.done>=1?`<div class=bkc><b>Know someone learning Hebrew?</b><span>Send them this free app.</span><button class="btn alt" id=shr>Share Daily Hebrew</button><div id=shm></div></div>`:""}`;
 }
 let INC={v:true,w:true};try{Object.assign(INC,JSON.parse(localStorage.getItem("hvp_inc")||"{}"))}catch(e){}
 if(!INC.v&&!INC.w)INC={v:true,w:true};
@@ -2855,6 +2855,7 @@ const LEXS=`הזה|haze|this (m.)
 ארוכים|arukim|long (m. pl.)
 אשראי|ashrai|credit
 את|at / et|you (f.) / object marker
+חלה|challah|challah, the braided bread for Shabbat
 אתה|ata|you (m.)
 אתם|atem|you (pl. m.)
 אתמול|etmol|yesterday
@@ -4302,16 +4303,23 @@ const vgloss=o=>{const{v,t,i}=o,cap=x=>x[0].toUpperCase()+x.slice(1);
 const hwKey=w=>/[א-ת]/.test(w)?w.replace(/[^א-ת']/g,""):"";
 const hwTr=k=>{const e=LEX.get(k);if(e)return e.t;const vs=vfm().get(k);return vs?[...new Set(vs.map(o=>o.tr))].slice(0,2).join(" / "):""};
 const hwKnown=k=>k&&(LEX.has(k)||vfm().has(k));
-function hw(text){return text.split(/(\s+)/).map(p=>{if(!p.trim())return p;const k=hwKey(p);if(!hwKnown(k))return esc(p);return `<button type=button class=hw data-hw="${k}"><span>${esc(p)}</span><small class=hwt>${esc(hwTr(k))}</small></button>`}).join("")}
+const HOMV={at:["at","you (f.) — the pronoun, e.g. את גרה = you live"],et:["et","object marker — comes before a definite object and is not translated, e.g. אני קורא את הספר = I read the book"]};
+const HQW=new Set(["מה","איפה","מתי","למה","איך","כמה","מי","מאיפה","לאן"]);
+function hwVar(k,i,parts){
+ if(k=="את"){let j=i-1;while(j>=0&&!parts[j].trim())j--;if(j<0)return"at";return HQW.has(hwKey(parts[j]))?"at":"et"}
+ if(k=="חלה"){const m=R&&R.cur&&R.cur.m;return m&&m.v&&m.v.infinitive.h=="לחלות"?"verb":""}
+ return"";
+}
+function hw(text){const parts=text.split(/(\s+)/);return parts.map((p,i)=>{if(!p.trim())return p;const k=hwKey(p);if(!hwKnown(k))return esc(p);const v=hwVar(k,i,parts),tr=HOMV[v]?HOMV[v][0]:v=="verb"?[...new Set((vfm().get(k)||[]).map(o=>o.tr))].slice(0,2).join(" / "):hwTr(k);return `<button type=button class=hw data-hw="${k}"${v?` data-hv="${v}"`:""}><span>${esc(p)}</span><small class=hwt>${esc(tr)}</small></button>`}).join("")}
 function wpopOff(){const el=document.getElementById("wpop");if(el)el.remove();document.querySelectorAll(".hw.on").forEach(b=>b.classList.remove("on"))}
 function hwPop(k,btn){
  let el=document.getElementById("wpop");
  if(el&&el.dataset.k==k){wpopOff();return}
  wpopOff();el=document.createElement("div");el.id="wpop";el.setAttribute("role","dialog");el.dataset.k=k;
- const e=LEX.get(k),vs=(vfm().get(k)||[]).slice(0,3);
+ const hv=btn&&btn.dataset.hv||"";let e=LEX.get(k),vs=(vfm().get(k)||[]).slice(0,3);if(HOMV[hv]){e={t:HOMV[hv][0],g:HOMV[hv][1]};vs=[]}else if(k=="חלה"){if(hv=="verb")e=null;else vs=[]}
  let h=`<button class=wx data-wx=1 aria-label=Close>✕</button><div class=wh dir=rtl lang=he>${esc(k)}</div>`;
  if(e)h+=`<div class=wt>${esc(e.t)}</div><div class=wg>${esc(e.g)}</div>`;
- else if(vs.length)h+=`<div class=wt>${esc(hwTr(k))}</div>`;
+ else if(vs.length)h+=`<div class=wt>${esc(hv=="verb"?[...new Set(vs.map(o=>o.tr))].slice(0,2).join(" / "):hwTr(k))}</div>`;
  vs.forEach(o=>{h+=`<div class=wv><b>${esc(vgloss(o))}</b>verb: <span dir=rtl>${esc(o.v.infinitive.h)}</span> · ${esc(o.v.infinitive.t)} · ${esc(o.v.en[0])}<br><button class=link data-rv="${o.v.id}" data-hl="${o.t}:${o.i}">Show the full conjugation</button></div>`});
  el.innerHTML=h;document.body.appendChild(el);if(btn)btn.classList.add("on");
 }
@@ -4410,11 +4418,12 @@ function home(){
  const from=INC.v&&INC.w?"Mixed from verbs and phrases & grammar":INC.v?"From verbs only":"From phrases & grammar only";
  $("#app").innerHTML=`${tabs('home')}
  ${first?`<div class=howto><div class=ht>How it works</div><div>Each card is a sentence with a blank. Tap <em>Show answer</em>, then rate how easy it was. The app brings the card back at the right time.</div></div>`:""}
- ${LES&&lesIds("all").length?`<div class=tdy2>`:""}<div class=today><div class=tl>${LES&&lesIds("all").length?"General review":"Today"}</div><div class=tn><b>${due}</b> due for review · <b>${avail}</b> new</div><button class="btn go" id=go ${tot?"":"disabled"}>Start review${n?` (${n} cards)`:""}</button>${n?`<div class=tsub>${from} · about ${Math.max(1,Math.round(n/4))} minutes</div>`:""}${all.length&&!avail&&fresh?`<button class=tlink data-a=more10>Learn 10 more new cards today</button>`:""}${all.length?"":`<div class=tsub>Choose something to practice below.</div>`}</div>${LES&&lesIds("all").length?lesCard()+`</div>`:""}
+ ${LES&&lesIds("all").length?`<div class=tdy2>`:""}<div class=today><div class=tl>${LES&&lesIds("all").length?"General review":"Today"}</div><div class=tn><b>${due}</b> due for review · <b>${avail>99?"99+":avail}</b> new</div><button class="btn go" id=go ${tot?"":"disabled"}>Start review${n?` (${n} cards)`:""}</button>${n?`<div class=tsub>${from} · about ${Math.max(1,Math.round(n/4))} minutes</div>`:""}${all.length&&!avail&&fresh?`<button class=tlink data-a=more10>Learn 10 more new cards today</button>`:""}${all.length?"":`<div class=tsub>Choose something to practice below.</div>`}</div>${LES&&lesIds("all").length?lesCard()+`</div>`:""}
  ${weakIds().length?`<div class=qrow><button class="btn alt" id=wk>🎯 Weak spots (${Math.min(10,weakIds().length)})</button></div>`:""}
  <h3 class=mkt>Include in my review</h3><div class="chips incs"><button class=chip data-inc=v aria-pressed="${INC.v}"><b>Verbs</b></button><button class=chip data-inc=w aria-pressed="${INC.w}"><b>Phrases & grammar</b></button></div>
  <details class="mkd${INC.v?"":" off"}" data-k=v ${INC.v&&op("v")?"open":""}><summary>Verbs <span>${INC.v?lvn+" · "+vn+" · "+(tn||"no forms"):"Not included"}</span></summary>${INC.v?`<h4>Level</h4><div class=seg>${LV.map(([k,e,d])=>`<button data-l="${k}" aria-pressed="${sel.l.size==1&&sel.l.has(k)}">${e}</button>`).join("")}<button data-l=0 aria-pressed="${sel.l.size>1}" class=segmix>Mix</button></div><p class=segd>${ld}</p><h4>Verb groups</h4><div class="chips vg">${GR().map(g=>`<button class=chip data-v="${g.n}" aria-pressed="${sel.v.has(g.n)}"><b dir=rtl>${g.s}</b><small>${g.n} · ${g.k} verbs</small></button>`).join('')}</div><h4>Forms</h4><div class="chips ft">${TENSES.map(([k,e,h])=>`<button class=chip data-t="${k}" aria-pressed="${sel.t.has(k)}"><b dir=rtl>${h}</b><small>${e}</small></button>`).join("")}</div>`:""}</details>
  <details class="mkd${INC.w?"":" off"}" data-k=w ${INC.w&&op("w")?"open":""}><summary>Phrases & grammar <span>${INC.w?WN2[WS.d]:"Not included"}</span></summary>${INC.w?wSetup():""}</details>
+ <div class=center style="margin:20px 0 4px"><button class="btn go2" id=go2 ${tot?"":"disabled"}>Practice my selection${n?` (${n} cards)`:""}</button></div>
  <div style="margin-top:18px">${scorecard()}</div>
  <div class=more><button class="btn alt" id=lk ${sel.v.size&&sel.t.size?"":"disabled"}>Homework link</button></div><div id=lnk></div>
  <div class=center style="margin-top:22px"><p class=sub style="font-size:.8rem">A form counts as well learned once its next review is 3 weeks or more away.</p><div id=rsbox><button class=link id=rs>Reset my progress</button></div></div>`;
@@ -4505,7 +4514,7 @@ document.addEventListener("click",e=>{
  else if(D.l){const n=+D.l;sel.l=new Set(n?[n]:[1,2,3,4]);try{localStorage.setItem("hvp_lv",n)}catch(e){}ACT.lv[n]=(ACT.lv[n]||0)+1;actSave();if(n)GRS.lv=[0,1,1,2,3][n];home()}
  else if(D.tab){tab=D.tab;ACT.tb[tab]=(ACT.tb[tab]||0)+1;actSave();show()}
  else if(b.id=='rp'){const t=rep();$('#rpt').innerHTML=`<textarea class=l rows=8 readonly onclick='this.select()'>${esc(t)}</textarea>`;try{navigator.clipboard.writeText(t)}catch(x){}}
- else if(b.id=="go")build();else if(b.id=="lgo")rvStart(()=>lesIds("all"),{from:"home",cap:20});else if(b.id=="lout"){try{localStorage.removeItem("hvp_stu");localStorage.removeItem("hvp_les")}catch(x){}LES=null;home()}else if(b.id=="lgo1")rvStart(()=>lesIds("last"),{from:"home",cap:20});
+ else if(b.id=="go"||b.id=="go2")build();else if(b.id=="lgo")rvStart(()=>lesIds("all"),{from:"home",cap:20});else if(b.id=="lout"){try{localStorage.removeItem("hvp_stu");localStorage.removeItem("hvp_les")}catch(x){}LES=null;home()}else if(b.id=="lgo1")rvStart(()=>lesIds("last"),{from:"home",cap:20});
  else if(D.a=="home")home();
  else if(D.a=="more"){rvStart(R.src,R.o)}
  else if(D.a=="more10"){ndFix();{const ids=R?(typeof R.src=="function"?R.src():R.ids)||[]:homeIds();if(ids.some(i=>!store[i]&&!isW(i)))ND.x+=10;if(ids.some(i=>!store[i]&&isW(i)))ND.xw+=10}ndSave();if(R)rvStart(R.src,R.o);else if(tab=="words")words();else home()}
