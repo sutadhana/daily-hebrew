@@ -202,12 +202,13 @@ body.hasnudge{padding-bottom:84px}
 #mtoast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:45;max-width:min(calc(100vw - 32px),360px);background:var(--ac);color:var(--acfg);font-weight:600;font-size:.85rem;line-height:1.3;padding:9px 16px;border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.25);pointer-events:none;text-align:center;animation:nj .35s ease-out,nf .5s ease-in 4.2s forwards}
 @keyframes nf{to{opacity:0;transform:translate(-50%,8px)}}
 
-#a2tip{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:40;width:min(calc(100vw - 24px),440px);display:flex;align-items:center;gap:10px;background:var(--card);color:var(--fg);border:1px solid var(--bd);border-radius:16px;padding:6px 4px 6px 14px;box-shadow:0 6px 24px rgba(40,30,10,.18);font-size:.8rem;line-height:1.25;animation:nj .35s ease-out}
-#a2tip span{flex:1}#a2tip b{font-weight:700}
-#a2tip .go{flex:0 0 auto;background:var(--ac);color:var(--acfg);border:0;font:700 .8rem system-ui;padding:8px 14px;border-radius:10px;cursor:pointer;white-space:nowrap}
-#a2tip .x{flex:0 0 auto;background:none;border:0;color:var(--mut);font-size:1.15rem;line-height:1;padding:8px 10px;cursor:pointer;border-radius:8px}
+#a2bar{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:40;display:flex;align-items:center;gap:2px;background:var(--card);border:1px solid var(--bd);border-radius:999px;box-shadow:0 6px 20px rgba(45,48,46,.18);padding:3px;max-width:calc(100% - 24px)}
+#a2bar .go{display:inline-flex;align-items:center;gap:7px;border:0;background:none;color:var(--ac);font:600 .88rem system-ui;padding:8px 8px 8px 13px;cursor:pointer;white-space:nowrap}
+#a2bar .x{border:0;background:none;color:var(--mut);font-size:1.25rem;line-height:1;width:34px;height:34px;border-radius:50%;cursor:pointer}
+body.rev #a2bar,body.modal-open #a2bar,#a2ov~#a2bar{display:none}body.has-a2{padding-bottom:84px}
+#a2ov .a2s{background:var(--bg);border:1px solid var(--bd);border-radius:14px;padding:10px 14px;margin:0 0 12px}#a2ov .a2s h4{margin:0 0 4px;font-size:1.02rem}#a2ov .ic{display:inline-block;vertical-align:-4px;color:var(--ac)}
 #a2ov{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:16px}
-#a2ov .sheet{max-width:440px;padding:20px 20px 18px;overflow:visible}
+#a2ov .sheet{max-width:440px;width:100%;padding:20px 20px 18px;overflow-y:auto;max-height:calc(100dvh - 32px);position:relative}#a2ov .a2x{position:absolute;top:10px;right:10px;border:0;background:none;color:var(--mut);font-size:1.4rem;width:36px;height:36px;border-radius:50%;cursor:pointer}#a2ov h3{padding-right:30px}
 #a2ov h3{margin:0 0 4px;font-size:1.15rem}#a2ov p{margin:0 0 10px;color:var(--mut);font-size:.88rem}
 #a2ov .tb2{display:flex;gap:6px;margin:10px 0 12px}#a2ov .tb2 button{flex:1;border:1.5px solid var(--bd);background:var(--chip);color:var(--fg);border-radius:10px;padding:8px;font:600 .9rem system-ui;cursor:pointer}
 #a2ov .tb2 button[aria-pressed=true]{background:var(--ac);border-color:var(--ac);color:var(--acfg)}
@@ -2700,7 +2701,7 @@ const POP_URL=m=>'https://www.hebrew-with-mor.com/?utm_source=practice-app&utm_m
 function nudgeOff(){const n=document.getElementById('nudge');if(n)n.remove();document.body.classList.remove('hasnudge')}
 function nudge(){
  const P=ACT.pop,now=Date.now();
- if(document.getElementById('nudge')||document.getElementById('a2tip')||document.getElementById('a2ov')||document.getElementById('mtoast')||SESS<240)return;
+ if(document.getElementById('nudge')||document.getElementById('a2ov')||document.getElementById('mtoast')||SESS<240)return;
  if(P.clk&&now-P.clk<60*DAY)return;if(P.dis&&now-P.dis<14*DAY)return;if(P.last&&now-P.last<DAY)return;
  if(document.querySelector('#ov.on'))return;
  if(document.querySelector('.rvc:not(.shown)'))return;
@@ -2715,7 +2716,7 @@ document.addEventListener('click',e=>{
  const a=e.target.closest('#nudgego,#brand,[data-bk]');
  if(a){actDay().w++;if(a.id=='nudgego'){ACT.pop.clk=Date.now();nudgeOff()}actSave();sync()}
 });
-setInterval(()=>{if(document.hidden||Date.now()-lastInt>45000)return;SESS+=10;actDay().s+=10;ACT.tot=(ACT.tot||0)+10;if(SESS%60==0){actSave();sync()}a2Tip();nudge()},10000);
+setInterval(()=>{if(document.hidden||Date.now()-lastInt>45000)return;SESS+=10;actDay().s+=10;ACT.tot=(ACT.tot||0)+10;if(SESS%60==0){actSave();sync()}nudge()},10000);
 
 // ---- progress score, sign-in note, weak spots, milestones ----
 const SC=[[0,"Just starting"],[10,"Getting going"],[40,"Building momentum"],[120,"Strong foundation"],[300,"Confident"],[700,"Advanced"]];
@@ -2727,34 +2728,33 @@ const weakIds=()=>Object.keys(store).filter(k=>{if(k=="_s")return false;const e=
 
 // ---- visit counter and "add to home screen" tip (visits 1, 2, 7 and 8, after a few minutes of practice) ----
 (()=>{const n=Date.now();if(!ACT.vl||n-ACT.vl>2*3600*1000)ACT.v=(ACT.v||0)+1;ACT.vl=n;actSave()})();
-const A2={ios:["Open this page in <b>Safari</b> (not inside another app).","Tap the <b>Share</b> button (the square with an arrow pointing up, at the bottom of the screen).","Scroll down and tap <b>Add to Home Screen</b>.","Tap <b>Add</b>. The app now opens from your home screen."],
- and:["Open this page in <b>Chrome</b>.","Tap the <b>⋮ menu</b> (three dots, top right).","Tap <b>Add to Home screen</b> (or <b>Install app</b>).","Tap <b>Add</b>. The app now opens from your home screen."]};
+// ---- phones only: a small button at the bottom to save the app to the home screen, with instructions (stays until the X is tapped) ----
 const isApp=()=>{try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}catch(e){return false}};
-function a2Off(){const n=document.getElementById('a2tip');if(n)n.remove();document.body.classList.remove('hasnudge')}
-function a2Sheet(os){
- let o=document.getElementById('a2ov');if(!o){o=document.createElement('div');o.id='a2ov';document.body.appendChild(o)}
- os=os||(/iPhone|iPad|iPod/.test(navigator.userAgent)?'ios':'and');
- o.innerHTML='<div class=sheet role=dialog aria-label="Add to home screen"><h3>Keep the app on your home screen</h3><p>One tap to open, like any other app. Free, no download.</p><div class=tb2><button data-a2os=ios aria-pressed='+(os=='ios')+'>iPhone / iPad</button><button data-a2os=and aria-pressed='+(os=='and')+'>Android</button></div><ol>'+A2[os].map(x=>'<li>'+x+'</li>').join('')+'</ol><div class=row2><button class="btn alt" id=a2done>I did it</button><button class=btn id=a2close>Close</button></div></div>';
+let a2Def=null;addEventListener('beforeinstallprompt',e=>{e.preventDefault();a2Def=e});
+const a2Ua=navigator.userAgent,a2IOS=/iPhone|iPod/.test(a2Ua)||(/iPad|Macintosh/.test(a2Ua)&&navigator.maxTouchPoints>1),a2And=/Android/.test(a2Ua);
+const a2Phone=()=>{try{return(a2IOS||a2And||/Mobi/.test(a2Ua))&&matchMedia('(pointer:coarse)').matches}catch(e){return false}};
+function a2Bar(){
+ let no=false;try{no=localStorage.getItem('hvp_a2')==='no'}catch(e){}
+ if(!a2Phone()||isApp()||no||document.getElementById('a2bar'))return;
+ const b=document.createElement('div');b.id='a2bar';
+ b.innerHTML='<button class=go type=button><svg width=16 height=16 viewBox="0 0 24 24" fill=none stroke=currentColor stroke-width=2 stroke-linecap=round aria-hidden=true><rect x=6 y=2 width=12 height=20 rx=2.5 /><path d="M12 7v7M8.5 10.5 12 14l3.5-3.5"/></svg>Save this app to your home screen</button><button class=x type=button aria-label=Hide>×</button>';
+ document.body.appendChild(b);document.body.classList.add('has-a2');
+ b.querySelector('.x').onclick=()=>{b.remove();document.body.classList.remove('has-a2');try{localStorage.setItem('hvp_a2','no')}catch(e){}};
+ b.querySelector('.go').onclick=a2Sheet;
 }
-function a2Tip(){
- const T=ACT.a2=ACT.a2||{shown:{},done:0};
- if(T.done||isApp()||SESS<180)return;
- if(![1,2,7,8].includes(ACT.v)||T.shown[ACT.v])return;
- if(document.getElementById('a2tip')||document.getElementById('nudge')||document.getElementById('mtoast')||document.querySelector('#ov.on,#a2ov'))return;
- if(document.querySelector('.rvc:not(.shown)'))return;
- T.shown[ACT.v]=Date.now();actSave();
- const n=document.createElement('div');n.id='a2tip';n.setAttribute('role','complementary');
- n.innerHTML='<span><b>Tip:</b> add this app to your home screen</span><button class=go id=a2see>See how</button><button class=x id=a2x aria-label="Close">×</button>';
- document.body.appendChild(n);document.body.classList.add('hasnudge');setTimeout(a2Off,30000);
+function a2Sheet(){
+ let o=document.getElementById('a2ov');if(!o){o=document.createElement('div');o.id='a2ov';document.body.appendChild(o)}
+ const sh='<svg class=ic width=20 height=20 viewBox="0 0 24 24" fill=none stroke=currentColor stroke-width=2 stroke-linecap=round stroke-linejoin=round aria-label=Share><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>';
+ const ios='<section class=a2s><h4>iPhone</h4><ol><li>Open this page in <b>Safari</b>.</li><li>Tap the <b>Share</b> button '+sh+'. It’s at the bottom of the screen, or on newer iPhones inside the <b>•••</b> menu.</li><li>Scroll down and tap <b>Add to Home Screen</b>.</li><li>Tap <b>Add</b>, at the top right.</li></ol></section>';
+ const and='<section class=a2s><h4>Android</h4>'+(a2Def?'<button class=btn id=a2add type=button style="margin:2px 0 10px">Add it now</button><p style="margin:0 0 6px">Or do it yourself:</p>':'')+'<ol><li>Open this page in <b>Chrome</b>.</li><li>Tap the menu <b class=ic>⋮</b> at the top right.</li><li>Tap <b>Add to Home screen</b> (on some phones: <b>Install app</b>).</li><li>Tap <b>Add</b> (or <b>Install</b>).</li></ol></section>';
+ o.innerHTML='<div class=sheet role=dialog aria-label="Save the app to your home screen"><button class=a2x id=a2close type=button aria-label=Close>×</button><h3>Save the app to your home screen</h3><p>Then it opens like any other app, with its own icon.</p>'+(a2And?and+ios:ios+and)+'<div class=row2><button class=btn id=a2close2 type=button>Close</button></div></div>';
 }
 document.addEventListener('click',e=>{
  const t=e.target;
- if(t.closest('#a2x')){a2Off();return}
- if(t.closest('#a2see')){a2Off();a2Sheet();return}
- const os=t.closest('[data-a2os]');if(os){a2Sheet(os.dataset.a2os);return}
- if(t.closest('#a2done')){ACT.a2.done=Date.now();actSave();document.getElementById('a2ov').remove();return}
- if(t.closest('#a2close')||t.id=='a2ov'){const o=document.getElementById('a2ov');if(o)o.remove()}
+ if(t.closest('#a2add')&&a2Def){a2Def.prompt();Promise.resolve(a2Def.userChoice).catch(()=>{}).then(()=>{a2Def=null;const o=document.getElementById('a2ov');if(o)o.remove()});return}
+ if(t.closest('#a2close,#a2close2')||t.id=='a2ov'){const o=document.getElementById('a2ov');if(o)o.remove()}
 });
+a2Bar();
 
 // ---- word dictionary: every Hebrew word in the exercises is clickable ----
 const LEXS=`הזה|haze|this (m.)
