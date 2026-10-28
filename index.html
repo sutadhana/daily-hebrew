@@ -257,6 +257,9 @@ body.rev #a2bar,body.modal-open #a2bar,#a2ov~#a2bar{display:none}body.has-a2{pad
 .grades{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}.grades button{border:1.5px solid var(--bd);background:var(--card);color:var(--fg);border-radius:12px;padding:10px 4px;cursor:pointer;font:600 .95rem system-ui;display:flex;flex-direction:column;align-items:center;gap:2px}.grades button small{font:500 .75rem system-ui;color:var(--mut)}.grades button.good{background:var(--ac);color:var(--acfg);border-color:var(--ac)}.grades button.good small{color:inherit;opacity:.85}.grades button:hover{border-color:var(--ac)}
 .hw.hl{background:color-mix(in srgb,var(--ac) 22%,transparent)}
 .mkh{display:flex;justify-content:space-between;align-items:center;margin:14px 0 14px}.mkh b{font:700 1.6rem system-ui;display:block;color:var(--ac);letter-spacing:-.01em}.mkh small{color:var(--mut)}.mki{display:flex;gap:8px}.mki .chip{padding:10px 14px;min-width:0;min-height:0}
+.acbox{margin:18px 0 8px;padding:14px 16px;border:1px solid var(--bd);border-radius:14px;background:var(--card);display:flex;gap:12px;align-items:center;justify-content:space-between}.acbox b{display:block}.acbox span{display:block;color:var(--mut);font-size:.85rem}.acbox .btn{flex:0 0 auto;padding:10px 16px}
+#acw{position:fixed;inset:0;z-index:75;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:16px}#acw[hidden]{display:none}#acw .sheet{max-width:440px;width:100%;padding:20px;overflow-y:auto;max-height:calc(100dvh - 32px);position:relative;background:var(--bg);border-radius:18px}#acw h3{margin:0 0 6px;padding-right:30px;font-size:1.2rem}#acw p{margin:0 0 10px;font-size:.92rem;line-height:1.45}#acw .a2x{position:absolute;top:10px;right:10px;border:0;background:none;color:var(--mut);font-size:1.4rem;width:36px;height:36px;cursor:pointer}#acw input[type=email]{width:100%;box-sizing:border-box;font:1rem system-ui;padding:11px;border:1px solid var(--bd);border-radius:10px;margin:6px 0 8px;background:var(--card);color:var(--fg)}#acw form .btn,#acw .acg{width:100%}#acw .acg{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--card);color:var(--fg);border:1px solid var(--bd)}#acw .acor{text-align:center;margin:12px 0;color:var(--mut);font-size:.85rem}#acw label{display:block;font-size:.9rem;font-weight:600}#acw .acs{font-size:.78rem;color:var(--mut);margin-top:10px}#acw .acst{color:var(--ac);font-weight:600;font-size:.88rem;min-height:1.2em}#acw .link{display:block;margin:12px auto 0}
+.hcard{border:1px solid var(--bd);border-radius:14px;background:var(--card);padding:14px 16px;margin:12px 0}.hcard .hh{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.hcard .hh small{display:block;color:var(--mut);font-size:.8rem}.hcard .hh .btn{padding:8px 12px;font-size:.85rem}.hcard .hs{color:var(--mut);font-size:.85rem;margin:8px 0}.hday{border-top:1px solid var(--bd);padding:8px 0}.hday summary{cursor:pointer}.hl{margin:8px 0 2px;line-height:1.9}.hl em{display:block;font:600 .75rem system-ui;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;font-style:normal}.hv{display:inline-block;background:var(--chip);border-radius:8px;padding:2px 9px;margin:0 6px 4px 0;font-size:.9rem}.hv small{color:var(--mut)}.hv.hd{background:rgba(200,120,60,.15)}
 .profbar{margin:0 0 10px;padding:8px 12px;border:1px dashed var(--bd);border-radius:12px;font:600 .85rem system-ui;color:var(--mut);display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center}.profbar select{font:600 .95rem system-ui;padding:6px 8px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--fg)}.profbar.on{background:var(--ac);color:var(--acfg);border-style:solid;border-color:var(--ac)}.profbar span{font-weight:500;opacity:.9}
 .go2{width:100%;max-width:420px;font-size:1.1rem;padding:15px}.tdy2{display:grid;gap:12px}.tdy2 .today{padding:16px}.tdy2 .tn b{font-size:1.5rem}.tdy2 .today .btn{font-size:1rem}.today.les{background:var(--acd,#47553f)}@media(min-width:760px){.tdy2{grid-template-columns:1fr 1fr}}.rfull.les .hwt{display:none}
 .today{background:var(--ac);color:var(--acfg);border-radius:20px;padding:20px;text-align:center}.today .tl{font:600 .85rem system-ui;letter-spacing:.08em;text-transform:uppercase;opacity:.8}.today .tn{font:500 1.05rem system-ui;margin:6px 0 14px}.today .tn b{font-size:1.9rem}.today .btn{background:var(--acfg);color:var(--ac);font-size:1.15rem;padding:15px;width:100%;box-shadow:none}.today .btn:disabled{opacity:.6}.today .tsub{font-size:.85rem;opacity:.85;margin-top:10px}.today .tlink{background:none;border:0;color:inherit;text-decoration:underline;margin-top:10px;font:600 .9rem system-ui;cursor:pointer}
@@ -819,7 +822,7 @@ p3;rshm3;רשם;r.sh.m;-;to write down,write down,writes down,wrote down;את ה
 p3;tfs3;תפס;t.f.s;-|p;to catch,catch,catches,caught;כדור|a ball;בשתי ידיים|with both hands
 p3;tfr;תפר;t.f.r;-|p;to sew,sew,sews,sewed;כפתור|a button;על החולצה|on the shirt
 p3;rkv;רכב;r.ch.v;-|k;to ride,ride,rides,rode;על אופניים|a bicycle;בפארק|in the park
-p3;dfk;דפק;d.f.k;-|p;to knock,knock,knocks,knocked;בדלת|on the door;בשקט|quietly
+p3;dfk;דפק;d.f.k;-|f;to knock,knock,knocks,knocked;בדלת|on the door;בשקט|quietly
 p3;ksr;קשר;k.sh.r;-;to tie,tie,ties,tied;שרוכים|shoelaces;בבוקר|in the morning
 p3;dchf;דחף;d.ch.f;-;to push,push,pushes,pushed;את העגלה|the cart;בסופר|in the supermarket
 p3;srk;סרק;s.r.k;-;to comb,comb,combs,combed;את השיער|the hair;לפני היציאה|before leaving
@@ -4356,13 +4359,13 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-trt]");if(
 try{if(localStorage.getItem("hvp_tr")==="0"){opt.tr=false;document.body.classList.add("notr")}}catch(e){}
 let syT=0;
 function sync(){if(!DB||!UID||PROF)return;clearTimeout(syT);syT=setTimeout(()=>{DB.doc('progress/'+UID).set({name:NAME||'Student',store,u:Date.now(),sum:mkSum()}).catch(()=>{})},1500)}
-const show=()=>tab=='read'?reader():tab=='words'?words():tab=='prog'?prog():tab=='stu'?stu():home();
+const show=()=>tab=='read'?reader():tab=='words'?words():tab=='prog'?prog():tab=='stu'?stu():tab=='hist'?hist():home();
 const APPN="Daily Hebrew";
 function profBar(){return `<div class="profbar${PROF?" on":""}"><label>Practicing as <select id=profsel><option value="">Me (my own progress)</option>${PROFS.map(p=>`<option value="${p[0]}"${p[0]==PROF?" selected":""}>${p[1]}</option>`).join("")}</select></label>${PROF?`<span>${PROFS.find(p=>p[0]==PROF)[1]}'s own progress is saved separately on this device</span>`:""}</div>`}
 function tabs(cur){
  document.body.classList.remove('rev');
  const o=document.getElementById('bnav');if(o)o.remove();
- const L=[['home','🎯','Practice'],['read','📖','Reader'],['prog','📈','Progress'],...(TEACH&&DB?[['stu','👥','Students']]:[])];
+ const L=[['home','🎯','Practice'],['read','📖','Reader'],['prog','📈','Progress'],...(TEACH&&DB?[['stu','👥','Students']]:[]),...(TCH?[['hist','📋','History']]:[])];
  return `<div class=mkh><div><b>${APPN}</b><small>Hebrew practice by Mor</small></div><div class=mki><button class=chip data-srch=1 aria-label="Search a word">🔍</button><button class=chip data-ro=1 aria-label="Verb reference">📚</button></div></div>${TCH||TEACH?profBar():""}<nav class=tnav aria-label="Main">${L.map(([k,e,l])=>`<button data-tab=${k} aria-pressed=${cur==k}><i>${e}</i>${l}</button>`).join('')}</nav>`}
 (async()=>{try{if(!window.claude)return;const u=await claude.use('user');DB=await claude.use('db');if(u){UID=await u.id();TEACH=await u.isOwner();if(!NAME){const me=await u.me();NAME=(me&&me.name)||''}}if(!R)show()}catch(e){}})();
 function prog(){
@@ -4379,7 +4382,7 @@ function prog(){
  <p class=sub style='font-size:.8rem'>A form is well learned once its next review is 3 weeks or more away.</p>
  ${wprog().some(x=>x[1].s)?`<h2>Phrases & grammar</h2><div style='overflow-x:auto'><table class=tb><tr><th>Practice</th><th>Started</th><th>Well learned</th></tr>${wprog().map(([n,g])=>`<tr><td>${n}</td><td>${g.s}/${g.n}</td><td>${g.m}/${g.n}</td></tr>`).join('')}</table></div>`:''}<div class=bkc><b>Practice speaking with a teacher</b><span>You are practicing at the <b>${lvnP}</b> level. Take it into a real conversation.</span><a class=btn data-bk=1 href="${POP_URL('progress')}" target=_blank rel=noopener>Book a free introductory meeting with Mor ↗</a></div><h2>Share with your teacher</h2><label>Your name <input class=l id=nm value='${esc(NAME)}' style='margin:0'></label>
  <p class=sub>${DB&&UID?'Your progress is shared with your teacher automatically.':'Progress is saved on this device. Use the button to copy a report for your teacher.'}</p>
- <button class='btn alt' id=rp>Copy my report</button><div id=rpt></div>`;
+ <button class='btn alt' id=rp>Copy my report</button><div id=rpt></div>${acBox()}`;
 }
 const rep=()=>{const r=stats(store),z=store._s||{a:0};return(NAME||'Student')+' - Hebrew practice\nWell learned '+pct(r.mast,r.tot)+'% of forms, '+z.a+' cards reviewed\n'+r.g.map(x=>x.n+' ('+x.s+'): '+TENSES.map(([t,e])=>e+' '+pct(x.t[t].m,x.t[t].n)+'%').join(', ')).join('\n')+'\n\nTeacher code (send this whole message to your teacher): hvp:'+b64(mkSum())};
 async function addRep(){
@@ -4436,7 +4439,7 @@ function home(){
  <div class=center style="margin:20px 0 4px"><button class="btn go2" id=go2 ${tot?"":"disabled"}>Practice my selection${n?` (${n} cards)`:""}</button></div>
  <div style="margin-top:18px">${scorecard()}</div>
  <div class=more><button class="btn alt" id=lk ${sel.v.size&&sel.t.size?"":"disabled"}>Homework link</button></div><div id=lnk></div>
- <div class=center style="margin-top:22px"><p class=sub style="font-size:.8rem">A form counts as well learned once its next review is 3 weeks or more away.</p><div id=rsbox><button class=link id=rs>Reset my progress</button></div></div>`;
+ <div class=center style="margin-top:22px"><p class=sub style="font-size:.8rem">A form counts as well learned once its next review is 3 weeks or more away.</p><div id=rsbox><button class=link id=rs>Reset my progress</button></div></div>${acBox()}`;
  document.querySelectorAll(".mkd").forEach(d=>d.addEventListener("toggle",()=>{if(innerWidth<760)MK[d.dataset.k]=d.open}));
 }
 
@@ -5421,6 +5424,110 @@ IMPX.split("\n").forEach(l=>{const[id,f]=l.split(";"),v=V.find(x=>x.id==id);if(v
 // Spoken-Hebrew pronunciation: when the stem ends in ד before a past ending beginning with ת, an "e" is heard (amadeti, not amadti)
 V.forEach(v=>(v.past||[]).forEach(f=>{if(/ש(תי|ת|תם|תן)$/.test(f.h.replace(/[\u05B0-\u05C7]/g,"")))f.t=f.t.replace(/sht(i|a|em|en)?(?=$|[\s\/])/g,(m,x)=>"st"+(x||""))}));
 V.forEach(v=>(v.past||[]).forEach(f=>{if(/ד(תי|ת|תם|תן)$/.test(f.h.replace(/[\u05B0-\u05C7]/g,""))&&/dt(i|a|em|en)?$/.test(f.t))f.t=f.t.replace(/dt(i|a|em|en)?$/,(m,x)=>"det"+(x||""))}));
+// ---- accounts: Google or an emailed link (Firebase). Public site only; progress follows the student to any device ----
+const FB_CFG={apiKey:"AIzaSyBAu6MDsABBSFzXErsd2cjEMkRO-jyYW5o",authDomain:"suta-dhana.firebaseapp.com",projectId:"suta-dhana",storageBucket:"suta-dhana.firebasestorage.app",messagingSenderId:"835596158374",appId:"1:835596158374:web:64c8cec32920eb1e9bbb67"};
+const TEACHER_EMAIL="moris91@gmail.com",SYNK=["hvp1","hvp_nd","hvp_inc","hvp_lv","hvg1","hvp_act","hvpn"];
+const ACCT=!window.claude&&/^https?:$/.test(location.protocol)&&!PROF;
+const AC={user:null,fb:null,dirty:{},timer:null,applying:false,reload:false,err:"",st:""};
+const acT=()=>{try{return JSON.parse(localStorage.getItem("hvacct:times")||"{}")}catch(e){return{}}};
+const acSetT=t=>{try{localStorage.setItem("hvacct:times",JSON.stringify(t))}catch(e){}};
+const acName=()=>(AC.user&&(AC.user.displayName||NAME||(AC.user.email||"").split("@")[0]))||"Student";
+if(ACCT){const raw=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){raw.call(this,k,v);if(this!==window.localStorage||AC.applying||!SYNK.includes(k))return;const t=acT();t[k]=Date.now();acSetT(t);if(AC.user){AC.dirty[k]={v:String(v),t:t[k]};clearTimeout(AC.timer);AC.timer=setTimeout(acPush,1500)}}}
+async function acPush(){if(!AC.user||!AC.fb||!Object.keys(AC.dirty).length)return;const b=AC.dirty;AC.dirty={};const{fs,db}=AC.fb;try{await fs.setDoc(fs.doc(db,"hebrew",AC.user.uid),{name:acName(),email:AC.user.email||"",data:b,updated:Date.now()},{merge:true})}catch(e){Object.assign(AC.dirty,b,AC.dirty);AC.st="Couldn't save to your account just now. It will try again."}}
+addEventListener("pagehide",()=>{acPush()});addEventListener("online",()=>{acPush()});
+function acMerge(a,b){let x={},y={};try{x=JSON.parse(a||"{}")}catch(e){}try{y=JSON.parse(b||"{}")}catch(e){}const o={...x};for(const[k,c]of Object.entries(y)){if(k=="_s"){if(!o._s||(c.a||0)>(o._s.a||0))o._s=c;continue}if(!o[k]||((c&&c.l)||0)>((o[k]&&o[k].l)||0))o[k]=c}return JSON.stringify(o)}
+async function acSync(){
+ const{fs,db}=AC.fb,ref=fs.doc(db,"hebrew",AC.user.uid),snap=await fs.getDoc(ref),cloud=(snap.exists()&&snap.data().data)||{},t=acT(),up={};
+ AC.applying=true;
+ for(const k of SYNK){const lv=localStorage.getItem(k),c=cloud[k],lt=t[k]||0;let v;
+  if(c==null)v=lv;else if(lv==null)v=c.v;else if(k=="hvp1")v=acMerge(lv,c.v);else v=(c.t||0)>=lt?c.v:lv;
+  if(v==null)continue;if(v!==lv){localStorage.setItem(k,v);AC.reload=true}
+  const nt=Math.max(lt,(c&&c.t)||0)||Date.now();t[k]=nt;if(!c||c.v!==v)up[k]={v,t:nt}}
+ AC.applying=false;acSetT(t);
+ await fs.setDoc(ref,{name:acName(),email:AC.user.email||"",data:up,updated:Date.now()},{merge:true});
+}
+async function acInit(){
+ if(AC.fb)return AC.fb;
+ const B="https://www.gstatic.com/firebasejs/10.12.2/",[a,au,fs]=await Promise.all([import(B+"firebase-app.js"),import(B+"firebase-auth.js"),import(B+"firebase-firestore.js")]);
+ const app=a.initializeApp(FB_CFG),auth=au.getAuth(app),db=fs.getFirestore(app);AC.fb={au,fs,auth,db};
+ au.getRedirectResult(auth).catch(()=>{});
+ au.onAuthStateChanged(auth,async u=>{
+  const was=AC.user&&AC.user.uid;AC.user=u;try{localStorage.setItem("hvacct:on",u?"1":"0")}catch(e){}acRender();
+  if(u&&u.uid!==was){try{await acSync();if(AC.reload&&!R){AC.reload=false;location.reload();return}}catch(e){AC.err="Couldn't reach your account just now."}}
+  acRender()});
+ if(au.isSignInWithEmailLink(auth,location.href)){let em="";try{em=localStorage.getItem("hvacct:email")||""}catch(e){}if(em)acFinish(em);else acModal("confirm")}
+ return AC.fb;
+}
+function acRender(){const b=document.getElementById("acbox");if(b)b.outerHTML=acBox();const w=document.getElementById("acw");if(w&&!w.hidden)acModal()}
+const acBox=()=>!ACCT?"":`<div class=acbox id=acbox><div><b>${AC.user?"Signed in":"Save your progress on every device"}</b><span>${AC.user?esc(AC.user.email||AC.user.displayName||""):"Sign in with Google or an emailed link. Free and optional."}</span></div><button class="btn alt" data-ac=1>${AC.user?"Account":"Sign in"}</button></div>`;
+function acModal(mode){
+ let w=document.getElementById("acw");if(!w){w=document.createElement("div");w.id="acw";document.body.appendChild(w)}
+ const sh='<button class=a2x data-acx=1 type=button aria-label=Close>×</button>',G='<svg width=18 height=18 viewBox="0 0 48 48" aria-hidden=true><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>';
+ let h;
+ if(mode=="confirm")h=`<h3>Finish signing in</h3><p>You opened the link on a different device or browser. Please type your email once more.</p><form id=acconf><input id=acem2 type=email required autocomplete=email placeholder="you@example.com"><button class="btn" type=submit>Sign in</button></form>`;
+ else if(AC.user)h=`<h3>Your account</h3><p>Signed in as <b>${esc(AC.user.email||AC.user.displayName||"")}</b>.</p><p>Your progress is saved to your account, so it follows you to any phone or computer where you sign in. Your teacher can see what you practised.</p><button class="btn alt" id=acout type=button>Sign out</button><p class=acs>Signing out keeps a copy of your progress on this device.</p>`;
+ else h=`<h3>Save your progress</h3><p>Sign in to keep your progress and use it on any phone or computer. It's optional: without signing in, everything stays on this device only.</p><button class="btn acg" id=acgo type=button>${G}<span>Continue with Google</span></button><div class=acor><span>or</span></div><form id=acmail><label for=acem>Email me a sign-in link (no password)</label><input id=acem type=email required autocomplete=email placeholder="you@example.com"><button class="btn" type=submit>Send link</button></form><button class=link id=aclater type=button>Not now</button><p class=acs>Privacy: we keep only your email address and your practice progress, stored with Google Firebase. They are used for nothing else and never shared. Your teacher can see your progress. To have your account deleted, write to Mor.</p>`;
+ w.innerHTML=`<div class=sheet role=dialog aria-label="Account">${sh}${h}<p class=acst id=acst role=status>${esc(AC.st||"")}</p></div>`;w.hidden=false;
+}
+const acStat=m=>{AC.st=m;const s=document.getElementById("acst");if(s)s.textContent=m};
+async function acOpen(){const w=document.getElementById("acw");try{await acInit()}catch(e){AC.st="Can't reach the sign-in service. Please check your connection.";}acModal();}
+document.addEventListener("click",async e=>{
+ const t=e.target;
+ if(t.closest("[data-ac]")){acOpen();return}
+ const w=document.getElementById("acw");if(!w||w.hidden)return;
+ if(t.closest("[data-acx],#aclater")||t==w){w.hidden=true;AC.st="";return}
+ const{au,auth}=AC.fb||{};
+ if(t.closest("#acgo")){const p=new au.GoogleAuthProvider();p.setCustomParameters({prompt:"select_account"});try{await au.signInWithPopup(auth,p);w.hidden=true}catch(x){if(x.code=="auth/popup-blocked"||x.code=="auth/operation-not-supported-in-this-environment"){await au.signInWithRedirect(auth,p);return}if(x.code=="auth/popup-closed-by-user"||x.code=="auth/cancelled-popup-request")return;acStat(acMsg(x))}}
+ else if(t.closest("#acout")){await acPush();await au.signOut(auth);w.hidden=true}
+});
+document.addEventListener("submit",async e=>{
+ if(e.target.id=="acmail"){e.preventDefault();const em=document.getElementById("acem").value.trim(),{au,auth}=AC.fb;acStat("Sending…");try{await au.sendSignInLinkToEmail(auth,em,{url:location.origin+location.pathname,handleCodeInApp:true});try{localStorage.setItem("hvacct:email",em)}catch(x){}acStat("Sent. Open the email we sent to "+em+" and tap the link. It may take a minute, and may land in your spam folder the first time.")}catch(x){acStat(acMsg(x))}}
+ if(e.target.id=="acconf"){e.preventDefault();acFinish(document.getElementById("acem2").value.trim())}
+});
+async function acFinish(em){const{au,auth}=AC.fb;acStat("Signing in…");try{await au.signInWithEmailLink(auth,em,location.href);try{localStorage.removeItem("hvacct:email")}catch(x){}history.replaceState(null,"",location.origin+location.pathname);const w=document.getElementById("acw");if(w)w.hidden=true}catch(x){acStat(acMsg(x))}}
+function acMsg(e){const c=(e&&e.code)||"";if(c.includes("invalid-email"))return"That email address doesn't look right.";if(c.includes("expired")||c.includes("invalid-action-code"))return"This sign-in link has expired or was already used. Please ask for a new one.";if(c.includes("network"))return"No connection. Please try again when you're online.";if(c.includes("unauthorized-domain"))return"Sign-in isn't switched on for this address yet.";return"Something went wrong. Please try again."}
+try{if(ACCT&&(localStorage.getItem("hvacct:on")==="1"||/[?&]apiKey=|oobCode=/.test(location.search)))acInit().catch(()=>{})}catch(e){}
+
+// ---- teacher: what each student practised, lesson by lesson ----
+const HDECK={poss:"Possessives",prep:"Prepositions + pronouns",adj:"Adjectives",tp:"Place & time",q:"Question words",num:"Numbers",imp:"Commands",ph:"Useful phrases",l:"Words from your lessons"};
+function hcard(id){
+ try{
+  if(id.startsWith("w:")){const[,d,a,b]=id.split(":");let w="";
+   if(d=="tp")w=TPL[+a].h;else if(d=="q")w=QW[+a].h;else if(d=="ph")w=WPH[+a].h;else if(d=="prep")w=(WPR.find(p=>p.k==a)||{}).he||"";else if(d=="adj")w=ADJ[+a].en;else if(d=="imp")w=WI[+a].en;else if(d=="l"&&LES){const L=LES.l.find(x=>x.id==a);const[,,,k,i]=id.split(":");const x=L&&(k=="w"?L.w:L.s)[+i];w=x?x.en:""}
+   return{g:"p",k:HDECK[d]||"Phrases",w}}
+  const[vid,t]=id.split(":"),v=V.find(x=>x.id==vid);if(!v)return null;return{g:"v",k:v.infinitive.h+" · "+v.en[0].replace(/^to /,""),w:t}
+ }catch(e){return null}
+}
+function hsum(st){
+ const ks=Object.keys(st||{}).filter(k=>k!="_s"&&st[k]&&st[k].l),days={};
+ ks.forEach(k=>{const d=new Date(st[k].l),key=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");(days[key]=days[key]||[]).push(k)});
+ const order=Object.keys(days).sort().reverse();
+ const started=ks.length,learned=ks.filter(k=>lrn(st[k])).length;
+ const dayHtml=order.slice(0,3).map((d,i)=>{
+  const ids=days[d],verbs={},phr={},hard=[];
+  ids.forEach(id=>{const c=hcard(id);if(!c)return;if(c.g=="v"){(verbs[c.k]=verbs[c.k]||new Set).add(c.w)}else{(phr[c.k]=phr[c.k]||new Set).add(c.w)}if(st[id].g<=2)hard.push(c)});
+  const dt=new Date(d+"T12:00:00").toLocaleDateString(undefined,{weekday:"long",day:"numeric",month:"long"});
+  const vl=Object.entries(verbs).map(([k,s])=>`<span class=hv>${esc(k)} <small>${[...s].join(", ")}</small></span>`).join("");
+  const pl=Object.entries(phr).map(([k,s])=>`<span class=hv>${esc(k)}${[...s].filter(Boolean).length?` <small>${esc([...s].filter(Boolean).slice(0,6).join(", "))}</small>`:""}</span>`).join("");
+  const hl=hard.slice(0,10).map(c=>`<span class="hv hd">${esc(c.k)}${c.w?` <small>${esc(c.w)}</small>`:""}</span>`).join("");
+  return `<details class=hday ${i==0?"open":""}><summary><b>${dt}</b> · ${ids.length} cards</summary>${vl?`<div class=hl><em>Verbs</em>${vl}</div>`:""}${pl?`<div class=hl><em>Phrases & grammar</em>${pl}</div>`:""}${hl?`<div class=hl><em>Needed another try</em>${hl}</div>`:""}</details>`}).join("");
+ return{started,learned,last:order[0],html:dayHtml||"<p class=sub>Nothing practised yet.</p>",n:order.length};
+}
+async function hist(){
+ tab="hist";R=null;
+ const draw=(people,note)=>{$("#app").innerHTML=`${tabs("hist")}<h2 style="margin:6px 0 4px">What each student practised</h2><p class=sub>The last three practice days for each student, newest first.</p>${people.map(p=>{const s=hsum(p.st);return `<div class=hcard><div class=hh><div><b>${esc(p.name)}</b><small>${p.src}${s.last?" · last practised "+new Date(s.last+"T12:00:00").toLocaleDateString(undefined,{day:"numeric",month:"short"}):" · not started"}</small></div>${p.pid?`<button class="btn alt" data-hp="${p.pid}">Practise as ${esc(p.name)}</button>`:""}</div><div class=hs>${s.started} cards started · ${s.learned} well learned</div>${s.html}</div>`}).join("")||"<p class=sub>No students yet.</p>"}${note||""}${acBox()}`};
+ const people=[];
+ PROFS.forEach(([id,name])=>{let raw=null;try{raw=Storage.prototype.getItem.call(localStorage,"hvp1@"+id)}catch(e){}if(raw){try{people.push({name,src:"on this device",st:JSON.parse(raw),pid:id})}catch(e){}}});
+ draw(people,"<p class=sub>Loading students who signed in…</p>");
+ try{
+  if(ACCT&&(localStorage.getItem("hvacct:on")==="1")){await acInit();
+   if(AC.user&&AC.user.email==TEACHER_EMAIL){const{fs,db}=AC.fb,qs=await fs.getDocs(fs.collection(db,"hebrew"));qs.forEach(d=>{if(d.id==AC.user.uid)return;const x=d.data()||{},h=x.data&&x.data.hvp1;if(!h)return;try{people.push({name:x.name||x.email||"Student",src:"signed in"+(x.email?" · "+x.email:""),st:JSON.parse(h.v)})}catch(e){}});draw(people,"")}
+   else draw(people,`<p class=sub>To also see students who signed in on their own phones, sign in with your own Google account (${TEACHER_EMAIL}) below.</p>`)}
+  else draw(people,ACCT?`<p class=sub>To also see students who signed in on their own phones, sign in with your Google account (${TEACHER_EMAIL}) below.</p>`:"");
+ }catch(e){draw(people,`<p class=sub>Couldn't load the signed-in students just now (${esc(e.code||e.message||"error")}).</p>`)}
+}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-hp]");if(!b)return;try{localStorage.setItem("hvp_prof",b.dataset.hp)}catch(x){}const u=new URL(location.href);u.searchParams.delete("s");location.href=u.toString()});
+
 lesLoad();home();
 </script>
 <script>
