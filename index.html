@@ -253,7 +253,7 @@ body.rev #a2bar,body.modal-open #a2bar,#a2ov~#a2bar{display:none}body.has-a2{pad
 .tglt .sw::after{content:"";position:absolute;top:2px;left:2px;width:8px;height:8px;border-radius:50%;background:var(--card);transition:transform .15s}
 .tglt[aria-pressed=true] .sw{background:var(--ac)}.tglt[aria-pressed=true] .sw::after{transform:translateX(10px)}
 .grbar,.grhd{align-items:center}.pnh{display:block;margin-top:2px;font-size:.78rem;color:var(--mut);opacity:.85}
-.rvc .rb{border-top:1px solid var(--bd);margin-top:16px;padding-top:14px}.rvs{margin-top:18px}.rvs #rskip{margin-top:20px}.rvs .btn{min-width:200px;padding:14px 22px;font-size:1.05rem}
+.rvc .rb{border-top:1px solid var(--bd);margin-top:16px;padding-top:14px}.rvs{margin-top:18px}.rvs #rskip{margin-top:20px}.prevrow{margin-top:14px;text-align:left}.prevrow .link{font-size:.95rem}.rvs .btn{min-width:200px;padding:14px 22px;font-size:1.05rem}
 .ra{text-align:center;margin-bottom:10px}.rah{font:700 2.1rem/1.3 Heebo,"Arial Hebrew",Arial,sans-serif;color:var(--ac)}.rat{color:var(--mut);font-size:1rem}.ram{font-size:.9rem;color:var(--mut);margin-top:4px}
 .rfull{text-align:center}.rfull .rtr{font-size:.9rem;color:var(--mut);margin:2px 0 6px}.rfull .en{margin-top:6px}
 .grades{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}.grades button{border:1.5px solid var(--bd);background:var(--card);color:var(--fg);border-radius:12px;padding:10px 4px;cursor:pointer;font:600 .95rem system-ui;display:flex;flex-direction:column;align-items:center;gap:2px}.grades button small{font:500 .75rem system-ui;color:var(--mut)}.grades button.good{background:var(--ac);color:var(--acfg);border-color:var(--ac)}.grades button.good small{color:inherit;opacity:.85}.grades button:hover{border-color:var(--ac)}
@@ -2607,7 +2607,7 @@ function rvQueue(ids,cap,weak){
 }
 function rvStart(src,o){
  o=o||{};const ids=typeof src=="function"?src():src,q=rvQueue(ids,o.cap||20,o.weak);
- R={src,o,ids,q,done:0,start:q.length,shown:false,cur:null};
+ R={src,o,ids,q,done:0,start:q.length,shown:false,cur:null,hist:[]};
  if(!q.length)return rvEnd();
  rvAsk();
 }
@@ -2637,7 +2637,7 @@ function rvDraw(){
  <div class=trrow>${trBtn()}</div><div class=refrow>${ref}<button class="btn alt" data-srch=1>🔍 Search a word</button></div>
  <div class="card rvc" id=rvc><div class=meta>${m.meta}</div>${m.front}
  <div class=rb id=rb hidden>${m.back}<div class=grades>${["Again","Hard","Good","Easy"].map((x,k)=>`<button data-gr=${k+1} class="${k==2?"good":""}">${x}<small>${pv[k]}</small></button>`).join("")}</div></div>
- <div class="center rvs" id=rvs><button class="btn" id=show>Show answer</button><div><button class=link id=rskip>Skip</button></div></div></div>`;
+ <div class="center rvs" id=rvs><button class="btn" id=show>Show answer</button><div><button class=link id=rskip>Skip</button></div></div>${R.hist&&R.hist.length?`<div class=prevrow><button class="link" id=rprev>← Previous card</button></div>`:""}</div>`;
  hwify();const sb=$("#show");if(sb)sb.focus({preventScroll:true});rvBottom();
 }
 function rvShow(){
@@ -2649,6 +2649,7 @@ function rvShow(){
 }
 function rvGrade(g){
  if(!R||!R.cur||!R.shown)return;const c=R.cur,id=c.id,wasNew=!store[id];
+ (R.hist=R.hist||[]).push({id,old:store[id]?JSON.parse(JSON.stringify(store[id])):null,q:R.q.slice(),done:R.done,wasNew,miss:G.miss[id]||null});if(R.hist.length>50)R.hist.shift();
  store[id]=FSRS.review(store[id]||{},g);
  const z=store._s||(store._s={a:0,c:0,t:0});z.a++;if(g==1)z.ag=(z.ag||0)+1;z.t=Date.now();save();
  if(wasNew){ndFix();if(id.startsWith("w:"))ND.nw++;else ND.n++;ndSave()}
@@ -2657,7 +2658,19 @@ function rvGrade(g){
  R.q.shift();if(g==1)R.q.push(id);else R.done++;
  rvAsk();
 }
-function rvSkip(){if(R&&R.q.length>1){R.q.push(R.q.shift());rvAsk()}}
+function rvSkip(){if(R&&R.q.length>1){(R.hist=R.hist||[]).push({id:R.cur.id,skip:1,q:R.q.slice(),done:R.done});R.q.push(R.q.shift());rvAsk()}}
+function rvPrev(){
+ if(!R||!R.hist||!R.hist.length)return;const h=R.hist.pop();
+ if(!h.skip){
+  if(h.old)store[h.id]=h.old;else delete store[h.id];
+  const z=store._s;if(z&&z.a>0){z.a--;}
+  if(h.wasNew){try{ndFix();if(h.id.startsWith("w:"))ND.nw=Math.max(0,ND.nw-1);else ND.n=Math.max(0,ND.n-1);ndSave()}catch(e){}}
+  if(h.miss)G.miss[h.id]=h.miss;else delete G.miss[h.id];gsave();
+  try{const a=actDay();if(a.q>0)a.q--;actSave()}catch(e){}
+  save();sync();
+ }
+ R.q=h.q;R.done=h.done;rvAsk();
+}
 function rvEnd(){
  document.body.classList.add('rev');
  const ks=Object.keys(store).filter(k=>k!="_s"&&store[k]&&store[k].s!==undefined),nxt=ks.map(k=>store[k].d).filter(d=>d>Date.now()).sort((a,b)=>a-b)[0];
@@ -4531,6 +4544,7 @@ document.addEventListener("click",e=>{
  if(b.id=="show"){rvShow();return}
  if(D.gr!==undefined){rvGrade(+D.gr);return}
  if(b.id=="rskip"){rvSkip();return}
+ if(b.id=="rprev"){rvPrev();return}
  if(b.id=="radd"){addRep();return}
  if(D.rv!==undefined){refOpen(D.rv,(R&&R.shown)?D.hl:"",!!(REF&&!REF.id));return}
  if(D.ro!==undefined){REF=REF&&!REF.id&&!REF.s?REF:{id:null,q:'',g:''};refRender();return}
