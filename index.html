@@ -1,4 +1,14 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><style id=tourcss>
+.tourbtn{display:inline-flex;align-items:center;gap:5px;margin-top:6px;border:1px solid var(--bd);background:var(--card);color:var(--ac);border-radius:999px;padding:3px 11px 3px 9px;font:500 .8rem/1.5 system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.tourbtn:hover{border-color:var(--ac)}
+#tourov{position:fixed;inset:0;z-index:9999;background:rgba(27,29,27,.62);display:flex;align-items:center;justify-content:center;padding:16px}
+#tourov .tbox{position:relative;width:min(960px,100%);background:var(--card);border-radius:18px;padding:16px 16px 14px;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+#tourov h3{margin:2px 40px 10px 2px;font:700 1.1rem system-ui,sans-serif;color:var(--fg)}
+#tourov video{display:block;width:100%;aspect-ratio:16/10;background:#000;border-radius:12px}
+#tourov .tx{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;border:1px solid var(--bd);background:var(--card);color:var(--fg);font-size:1.1rem;cursor:pointer}
+#tourov .tl{display:flex;flex-wrap:wrap;gap:4px 14px;margin:10px 2px 0;white-space:nowrap;font:400 .85rem system-ui,sans-serif;color:var(--mut)}
+#tourov .tl a{color:var(--ac)}
+</style></head><body>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -4507,7 +4517,7 @@ function tabs(cur){
  document.body.classList.remove('rev');
  const o=document.getElementById('bnav');if(o)o.remove();
  const L=[['home','🎯','Practice'],['read','📖','Reader'],['prog','📈','Progress'],...(TEACH&&DB?[['stu','👥','Students']]:[]),...(TCH?[['hist','📋','History']]:[])];
- return `<div class=mkh><div><b>${APPN}</b><small>Hebrew practice by Mor</small></div><div class=mki>${acIcon()}<button class=chip data-srch=1 aria-label="Search a word">🔍</button><button class=chip data-ro=1 aria-label="Verb reference">📚</button></div></div>${TCH||TEACH?profBar():""}<nav class=tnav aria-label="Main">${L.map(([k,e,l])=>`<button data-tab=${k} aria-pressed=${cur==k}><i>${e}</i>${l}</button>`).join('')}</nav>`}
+ return `<div class=mkh><div><b>${APPN}</b><small>Hebrew practice by Mor</small><button class=tourbtn type=button data-tour=1><svg width=11 height=11 viewBox="0 0 24 24" fill=currentColor aria-hidden=true><polygon points="7 4 20 12 7 20 7 4"/></svg>Take a tour</button></div><div class=mki>${acIcon()}<button class=chip data-srch=1 aria-label="Search a word">🔍</button><button class=chip data-ro=1 aria-label="Verb reference">📚</button></div></div>${TCH||TEACH?profBar():""}<nav class=tnav aria-label="Main">${L.map(([k,e,l])=>`<button data-tab=${k} aria-pressed=${cur==k}><i>${e}</i>${l}</button>`).join('')}</nav>`}
 (async()=>{try{if(!window.claude)return;const u=await claude.use('user');DB=await claude.use('db');if(u){UID=await u.id();TEACH=await u.isOwner();if(!NAME){const me=await u.me();NAME=(me&&me.name)||''}}if(!R)show()}catch(e){}})();
 function prog(){
  tab='prog';R=null;
@@ -6259,4 +6269,13 @@ document.addEventListener('keydown',e=>{if(e.key=='Escape'&&GRS.pop){GRS.pop=nul
 </script>
 </body>
 </html>
-<script>if("serviceWorker"in navigator&&location.protocol.startsWith("http"))addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));</script><!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a57c8791903f4b6d9a062ee2b15b18d6"}'></script><!-- End Cloudflare Web Analytics --></body></html>
+<script>if("serviceWorker"in navigator&&location.protocol.startsWith("http"))addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));</script><!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a57c8791903f4b6d9a062ee2b15b18d6"}'></script><!-- End Cloudflare Web Analytics --><script>
+(function(){
+ function close(){const o=document.getElementById('tourov');if(o)o.remove();document.removeEventListener('keydown',esc)}
+ function esc(e){if(e.key==='Escape')close()}
+ function open(){close();const o=document.createElement('div');o.id='tourov';o.setAttribute('role','dialog');o.setAttribute('aria-label','Tour of Daily Hebrew');
+  o.innerHTML='<div class=tbox><button class=tx type=button aria-label=Close>×</button><h3>A short tour of Daily&nbsp;Hebrew</h3><video controls autoplay playsinline preload=metadata poster="assets/tour-poster.jpg?v=2" src="assets/tour.mp4?v=1"></video><p class=tl><span>About 2½&nbsp;minutes.</span><a href="tour.html" target=_blank rel=noopener>Shareable tour page&nbsp;↗</a></p></div>';
+  o.addEventListener('click',e=>{if(e.target===o||e.target.closest('.tx'))close()});document.body.appendChild(o);document.addEventListener('keydown',esc)}
+ document.addEventListener('click',e=>{if(e.target.closest('[data-tour]')){e.preventDefault();open()}});
+})();
+</script></body></html>
