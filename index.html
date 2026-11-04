@@ -1,6 +1,11 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><style id=tourcss>
-.tourbtn{display:inline-flex;align-items:center;gap:5px;margin-top:6px;border:1px solid var(--bd);background:var(--card);color:var(--ac);border-radius:999px;padding:3px 11px 3px 9px;font:500 .8rem/1.5 system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.tourbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--bd);background:var(--card);color:var(--ac);border-radius:999px;font:600 .95rem/1.4 system-ui,sans-serif;cursor:pointer;white-space:nowrap}
 .tourbtn:hover{border-color:var(--ac)}
+.tb-n{margin-top:12px;padding:7px 16px 7px 13px}
+.mki .chip.tourbtn.tb-w{padding:10px 18px 10px 15px;margin-right:6px;background:var(--card);color:var(--ac);border:1px solid var(--bd);font:600 1rem/1.4 system-ui,sans-serif;gap:8px}
+.mki .chip.tourbtn.tb-w:hover{border-color:var(--ac)}
+@media (min-width:640px){.tb-n{display:none}}
+@media (max-width:639px){.mki .tourbtn.tb-w{display:none}}
 #tourov{position:fixed;inset:0;z-index:9999;background:rgba(27,29,27,.62);display:flex;align-items:center;justify-content:center;padding:16px}
 #tourov .tbox{position:relative;width:min(960px,100%);background:var(--card);border-radius:18px;padding:16px 16px 14px;box-shadow:0 18px 50px rgba(0,0,0,.35)}
 #tourov h3{margin:2px 40px 10px 2px;font:700 1.1rem system-ui,sans-serif;color:var(--fg)}
@@ -4517,7 +4522,7 @@ function tabs(cur){
  document.body.classList.remove('rev');
  const o=document.getElementById('bnav');if(o)o.remove();
  const L=[['home','🎯','Practice'],['read','📖','Reader'],['prog','📈','Progress'],...(TEACH&&DB?[['stu','👥','Students']]:[]),...(TCH?[['hist','📋','History']]:[])];
- return `<div class=mkh><div><b>${APPN}</b><small>Hebrew practice by Mor</small><button class=tourbtn type=button data-tour=1><svg width=11 height=11 viewBox="0 0 24 24" fill=currentColor aria-hidden=true><polygon points="7 4 20 12 7 20 7 4"/></svg>Take a tour</button></div><div class=mki>${acIcon()}<button class=chip data-srch=1 aria-label="Search a word">🔍</button><button class=chip data-ro=1 aria-label="Verb reference">📚</button></div></div>${TCH||TEACH?profBar():""}<nav class=tnav aria-label="Main">${L.map(([k,e,l])=>`<button data-tab=${k} aria-pressed=${cur==k}><i>${e}</i>${l}</button>`).join('')}</nav>`}
+ return `<div class=mkh><div><b>${APPN}</b><small>Hebrew practice by Mor</small><button class="tourbtn tb-n" type=button data-tour=1><svg width=12 height=12 viewBox="0 0 24 24" fill=currentColor aria-hidden=true><polygon points="7 4 20 12 7 20 7 4"/></svg>Take a tour</button></div><div class=mki><button class="chip tourbtn tb-w" type=button data-tour=1><svg width=13 height=13 viewBox="0 0 24 24" fill=currentColor aria-hidden=true><polygon points="7 4 20 12 7 20 7 4"/></svg>Take a tour</button>${acIcon()}<button class=chip data-srch=1 aria-label="Search a word">🔍</button><button class=chip data-ro=1 aria-label="Verb reference">📚</button></div></div>${TCH||TEACH?profBar():""}<nav class=tnav aria-label="Main">${L.map(([k,e,l])=>`<button data-tab=${k} aria-pressed=${cur==k}><i>${e}</i>${l}</button>`).join('')}</nav>`}
 (async()=>{try{if(!window.claude)return;const u=await claude.use('user');DB=await claude.use('db');if(u){UID=await u.id();TEACH=await u.isOwner();if(!NAME){const me=await u.me();NAME=(me&&me.name)||''}}if(!R)show()}catch(e){}})();
 function prog(){
  tab='prog';R=null;
