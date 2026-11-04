@@ -301,7 +301,7 @@ body.rev #a2bar,body.modal-open #a2bar,#a2ov~#a2bar{display:none}body.has-a2{pad
 <a class=brand id=brand href="https://www.hebrew-with-mor.com/?utm_source=practice-app&utm_medium=banner&utm_campaign=free-intro-lesson" target="_blank" rel="noopener" aria-label="Hebrew with Mor - open website"></a><main id="app"></main><div id="ov"></div>
 <script>
 // ---- teacher mode: practise as one of my students; each profile keeps its own progress on this device ----
-const PROFS=[["david","David"],["diana","Diana"],["ezra","Ezra"],["sarah","Sarah","sr7k2m"],["sarai","Sarai"],["valeria","Valeria"]];
+const PROFS=[["david","David"],["diana","Diana"],["ezra","Ezra"],["sarah","Sarah"],["sarai","Sarai"],["valeria","Valeria"]];
 let TCH=false,PROF="";
 try{const q=new URLSearchParams(location.search).get("teacher");if(q==="off")localStorage.removeItem("hvp_teach");else if(q!==null)localStorage.setItem("hvp_teach","1");TCH=localStorage.getItem("hvp_teach")==="1";PROF=localStorage.getItem("hvp_prof")||"";if(!PROFS.some(p=>p[0]==PROF))PROF=""}catch(e){}
 {const PK=new Set(["hvp1","hvp_nd","hvp_inc","hvp_lv","hvg1","hvp_act"]),sfx=k=>PROF&&PK.has(k)?k+"@"+PROF:k,P=Storage.prototype,g=P.getItem,st=P.setItem,rm=P.removeItem;
@@ -5303,11 +5303,9 @@ const lesStat=sc=>{const ids=lesIds(sc),now=Date.now(),due=ids.filter(i=>store[i
 function lesCard(){if(!LES||!lesIds("all").length)return"";const a=lesStat("all"),l=lesStat("last"),multi=LES.l.length>1;
  return `<div class="today les"><div class=tl>✦ ${LES.name} · from my lessons</div><div class=tn><b>${a.due}</b> due · <b>${a.nw}</b> new</div><button class="btn go" id=lgo ${a.n?"":"disabled"}>Practice vocabulary from my lessons${a.n?` (${a.n})`:""}</button>${multi&&l.n?`<button class=tlink id=lgo1>Only our last lesson (${l.n})</button>`:""}<div class=tsub>Words and sentences from your lessons with Mor</div>${TCH?"":`<button class=tlink id=lout>Not ${LES.name}? Use the general app</button>`}</div>`}
 function lesLoad(){
- if(TCH){const p=PROFS.find(x=>x[0]==PROF),id=p&&p[2]||"";if(!id||!location.protocol.startsWith("http"))return;fetch("students/"+id+".json?"+Date.now()).then(r=>r.ok?r.json():Promise.reject()).then(j=>{j.id=id;LES=j;if(tab=="home"&&!R)home()}).catch(()=>{});return}
- let id="";try{id=new URLSearchParams(location.search).get("s")||localStorage.getItem("hvp_stu")||"";if(id=="off"){localStorage.removeItem("hvp_stu");localStorage.removeItem("hvp_les");history.replaceState(null,"",location.pathname);return}}catch(e){}
- if(!/^[a-z0-9]{4,16}$/.test(id)||!location.protocol.startsWith("http"))return;
- try{const c=JSON.parse(localStorage.getItem("hvp_les")||"null");if(c&&c.id==id)LES=c}catch(e){}
- fetch("students/"+id+".json?"+Date.now()).then(r=>r.ok?r.json():Promise.reject()).then(j=>{j.id=id;LES=j;try{localStorage.setItem("hvp_stu",id);localStorage.setItem("hvp_les",JSON.stringify(j))}catch(e){}if(tab=="home"&&!R)home()}).catch(()=>{});
+ // personal lesson links (?s=...) were retired on 2026-11-04: everyone uses the same app and signs in. Clear what an old link left on this device.
+ try{localStorage.removeItem("hvp_stu");localStorage.removeItem("hvp_les");const u=new URL(location.href);if(u.searchParams.has("s")){u.searchParams.delete("s");history.replaceState(null,"",u.pathname+u.search+u.hash)}}catch(e){}
+ LES=null;
 }
 function words(){home()}
 const wcap=s=>s[0].toUpperCase()+s.slice(1);
