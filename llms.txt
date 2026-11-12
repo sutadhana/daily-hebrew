@@ -1,0 +1,17 @@
+# Daily Hebrew
+
+> Daily Hebrew is a free web app for practicing real, everyday spoken Hebrew, made by Mor, a native Israeli Hebrew teacher. It uses spaced-repetition cards, so each word comes back just before you forget it. No payment needed.
+
+## What you can practice
+
+- Verb conjugation: over 300 Hebrew verbs in the present, past, future, imperative and infinitive.
+- Everyday words and phrases: possessives, prepositions with pronouns, adjectives, numbers, question words, place and time.
+- Short dialogues and easy reading, with a translation for every line.
+- Transliteration and vowels (nikud) that can be switched on and off.
+- Levels from complete beginner to advanced.
+
+## Pages
+
+- [The app](https://practice.hebrew-with-mor.com/)
+- [A short video tour](https://practice.hebrew-with-mor.com/tour.html)
+- [Private Hebrew lessons with Mor](https://www.hebrew-with-mor.com/)
