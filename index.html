@@ -4019,8 +4019,8 @@ const LEXS=`הזה|haze|this (m.)
 מילון|milon|dictionary
 מילים|milim|words (pl.)
 מים|mayim|water
-מיץ|mitz|juice
-מיצים|mitzim|juices (pl.)
+מיץ|mits|juice
+מיצים|mitsim|juices (pl.)
 מישראל|miyisrael|from Israel
 מכאן|mikan|from here
 מכוניות|mechoniyot|cars (pl.)
@@ -4830,7 +4830,7 @@ sader;tidy;סדר|sader;סדרי|sadri;סדרו|sadru;___ את החדר|Tidy the
 chapes;look for;חפש|chapes;חפשי|chapsi;חפשו|chapsu;___ את המפתחות|Look for the keys
 nase;try;נסה|nase;נסי|nasi;נסו|nasu;___ שוב|Try again
 sa;drive;סע|sa;סעי|si'i;סעו|su;___ לאט|Drive slowly
-rutz;run;רוץ|rutz;רוצי|rutsi;רוצו|rutsu;___, האוטובוס בא|Run, the bus is coming
+rutz;run;רוץ|ruts;רוצי|rutsi;רוצו|rutsu;___, האוטובוס בא|Run, the bus is coming
 zuz;move;זוז|zuz;זוזי|zuzi;זוזו|zuzu;___ קצת|Move a little
 hitkasher;call;התקשר|hitkasher;התקשרי|hitkashri;התקשרו|hitkashru;___ אליי הערב|Call me this evening
 hiraga;calm down;הירגע|hiraga;הירגעי|hiragi;הירגעו|hiragu;___, הכול בסדר|Calm down, everything is fine
@@ -5284,7 +5284,7 @@ tm|עד|ad|until|אני עובד {P} חמש|ani oved ad chamesh|I work until fiv
 tm|מ… עד…|mi… ad…|from … to …|אני עובד מתשע עד חמש|ani oved mitesha ad chamesh|I work from nine to five|0
 tm|ב|be|at / on (a time)|הפגישה בשלוש|hapgisha beshalosh|The meeting is at three|0|נפגשים ביום ראשון|nifgashim beyom rishon|We meet on Sunday
 tm|בעוד|be'od|in (a time from now)|אני בא {P} שעה|ani ba be'od sha'a|I'm coming in an hour|1
-tm|כל|kol|every|אני רץ {P} בוקר|ani ratz kol boker|I run every morning|1
+tm|כל|kol|every|אני רץ {P} בוקר|ani rats kol boker|I run every morning|1
 tm|במשך|bemeshech|for (a period)|גרתי שם {P} שנה|garti sham bemeshech shana|I lived there for a year|1
 tm|מאז|me'az|since|אני כאן {P} יום ראשון|ani kan me'az yom rishon|I've been here since Sunday|1`.split("\n").map(l=>{const f=l.split("|");return{g:f[0],h:f[1],t:f[2],en:f[3],x:{he:f[4],tr:f[5],en:f[6]},bl:f[7]=="1",x2:f[8]?{he:f[8],tr:f[9],en:f[10]}:null}});
 // five question words, four example questions each
@@ -5558,7 +5558,7 @@ sdr;סדר|sader,סדרי|sadri,סדרו|sadru
 chps;חפש|chapes,חפשי|chapsi,חפשו|chapsu
 nse;נסה|nase,נסי|nasi,נסו|nasu
 nsa;סע|sa,סעי|si'i,סעו|su
-rutz;רוץ|rutz,רוצי|rutsi,רוצו|rutsu
+rutz;רוץ|ruts,רוצי|rutsi,רוצו|rutsu
 zuz;זוז|zuz,זוזי|zuzi,זוזו|zuzu
 hitkasher;התקשר|hitkasher,התקשרי|hitkashri,התקשרו|hitkashru
 nirga;הירגע|hiraga,הירגעי|hiragi,הירגעו|hiragu
@@ -6186,7 +6186,7 @@ B|יִהְיֶה בְּסֵדֶר.~yihye beseder~it'll be fine|וּמִי~umi~an
 A|לֹא,~lo~no|הַפַּעַם~hapa'am~this time|דָּנָה~Dana~Dana|אָמְרָה~amra~said|שֶׁהִיא~shehi~that she|תֹּאפֶה~tofe~will bake|עוּגַת תַּפּוּחִים.~ugat tapuchim~an apple cake
 B|דָּנָה?~Dana~Dana?|אֲנִי~ani~I|לֹא~lo~didn't|יָדַעְתִּי~yada'ti~know|שֶׁהִיא~shehi~that she|אוֹפָה!~ofa~bakes (f.)
 A|אָז~az~then|זֶה~ze~it|יִהְיֶה~yihye~will be|מְעַנְיֵין.~me'anyen~interesting|לְמִקְרֶה~lemikre~in case|שֶׁזֶּה~sheze~it|לֹא~lo~doesn't|יַצְלִיחַ,~yatsli'ach~work out|תִּקְנֶה~tikne~buy (m.)|גַּם~gam~also|מַשֶּׁהוּ~mashehu~something|בַּדֶּרֶךְ.~baderech~on the way
-B|סָגוּר.~sagur~deal|אֲנִי~ani~I|אֶקְנֶה~ekne~will buy|גַּם~gam~also|בַּקְבּוּק~bakbuk~a bottle (of)|מִיץ~mitz~juice|עֲנָבִים.~anavim~grapes|מָתַי~matai~when|צָרִיךְ~tsarich~do (we) need|לְהַגִּיעַ?~lehagi'a~to arrive
+B|סָגוּר.~sagur~deal|אֲנִי~ani~I|אֶקְנֶה~ekne~will buy|גַּם~gam~also|בַּקְבּוּק~bakbuk~a bottle (of)|מִיץ~mits~juice|עֲנָבִים.~anavim~grapes|מָתַי~matai~when|צָרִיךְ~tsarich~do (we) need|לְהַגִּיעַ?~lehagi'a~to arrive
 A|אִמָּא~ima~Mom|אָמְרָה~amra~said|בְּשֵׁשׁ,~beshesh~at six|אֲבָל~aval~but|אַתָּה יוֹדֵעַ~ata yode'a~you know|אֵיךְ זֶה.~eich ze~how it is|אַף אֶחָד~af echad~nobody|לֹא~lo~(not)|מַגִּיעַ~magi'a~arrives|לִפְנֵי~lifnei~before|שֶׁבַע.~sheva~seven
 B|בְּסֵדֶר.~beseder~OK|אֲנִי~ani~I|אָבוֹא~avo~will come|בְּשֵׁשׁ וָחֵצִי~beshesh vachetsi~at six thirty|לַעֲזוֹר~la'azor~to help|לְאִמָּא~le'ima~Mom|לַעֲרוֹךְ~la'aroch~set|אֶת~et~(marks a definite object)|הַשּׁוּלְחָן.~hashulchan~the table
 A|אֵיזֶה~eize~what a|בֵּן~ben~son|טוֹב.~tov~good|הִיא~hi~she|תִּהְיֶה~tihye~will be|בָּרָקִיעַ הַשְּׁבִיעִי.~barakia hashvi'i~in seventh heaven
@@ -6228,7 +6228,7 @@ A|אֲנִי~ani~I|לֹא~lo~don't|נוֹסֵעַ~nose'a~drive|יוֹתֵר~yote
 B|בְּפַעַם הַבָּאָה~befa'am haba'a~next time|נִסַּע~nisa~we'll go|בְּרַכֶּבֶת.~berakevet~by train
 A|אֲבָל~aval~but|הָרַכֶּבֶת~harakevet~the train|תָּמִיד~tamid~always|מְאַחֶרֶת.~me'acheret~is late (f.)
 B|לְפָחוֹת~lefachot~at least|לֹא~lo~don't|צָרִיךְ~tsarich~need|לְחַפֵּשׂ~lechapes~to look for|חֲנָיָה!~chanaya~parking
-A|סָגוּר.~sagur~deal|וְעַכְשָׁיו~ve'achshav~and now|בּוֹאִי~bo'i~come on (f.)|נָרוּץ!~narutz~let's run
+A|סָגוּר.~sagur~deal|וְעַכְשָׁיו~ve'achshav~and now|בּוֹאִי~bo'i~come on (f.)|נָרוּץ!~naruts~let's run
 @3|cinema|תוֹכְנִית לָעֶרֶב|Plans for the evening|קֶרֶן|Keren|דּוֹרוֹן|Doron
 A|דּוֹרוֹן,~Doron~Doron|מָה~ma~what|אַתָּה~ata~you (m.)|עוֹשֶׂה~ose~do|הָעֶרֶב?~ha'erev~this evening
 B|עֲדַיִן~adayin~still~עדיין|לֹא~lo~not|יוֹדֵעַ.~yode'a~know (m.)|יֵשׁ~yesh~there is|לָךְ~lach~to you (f.)|רַעְיוֹן?~ra'ayon~an idea
